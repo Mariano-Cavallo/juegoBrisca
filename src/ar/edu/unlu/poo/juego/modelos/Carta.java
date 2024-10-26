@@ -16,7 +16,7 @@ public class Carta {
         this.dueño = dueño;
     }
 
-
+    /*
     @Override
     public String toString() {
         return "Carta{" +
@@ -26,4 +26,14 @@ public class Carta {
                 ", dueño=" + dueño +
                 "}\n";
     }
+
+    */
+    @Override
+    public String toString() {
+        return valor +
+                " " + palo +
+                "\n";
+    }
+
+
 }

@@ -3,28 +3,17 @@ package ar.edu.unlu.poo.juego.modelos;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Mazo {
-    private int cantidad;
-    private ArrayList<Carta> cartas;
+public class Mazo extends ConjuntoDeCartas{
+
 
 
     public Mazo(){
-        this.cantidad = 0;
-        this.cartas = new ArrayList<>();
+        super();
     }
 
-    public Carta agregar(Carta carta){
-        cartas.add(carta);
-        this.cantidad ++;
-        return carta;
-    }
-    public Carta sacar(Carta carta){
-        cartas.remove(carta);
-        this.cantidad --;
-        return carta;
-    }
+
     public Carta robar(){
-        this.cantidad --;
+        cantidad --;
         return cartas.removeLast();
 
     }
