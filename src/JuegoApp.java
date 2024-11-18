@@ -1,8 +1,5 @@
 import ar.edu.unlu.poo.juego.controladores.Controlador;
-import ar.edu.unlu.poo.juego.modelos.Carta;
-import ar.edu.unlu.poo.juego.modelos.Mazo;
-import ar.edu.unlu.poo.juego.modelos.Palo;
-import ar.edu.unlu.poo.juego.modelos.Tablero;
+import ar.edu.unlu.poo.juego.modelos.*;
 import ar.edu.unlu.poo.juego.vistas.VistaGrafica;
 
 public class JuegoApp {
@@ -102,7 +99,15 @@ public class JuegoApp {
         mazoPrincipal.agregarCarta(basto10);
         mazoPrincipal.agregarCarta(basto11);
         mazoPrincipal.agregarCarta(basto12);
+        mazoPrincipal.agregarValorCartas();
         mazoPrincipal.mezclar();
+        ConjuntoDeCartas conjunto1 = new ConjuntoDeCartas();
+        conjunto1.agregarCarta(basto1);
+        conjunto1.agregarCarta(copa6);
+        conjunto1.agregarCarta(basto12);
+        conjunto1.agregarCarta(oro4);
+        System.out.print(conjunto1.cartaGanadoraRonda(basto3));
+        System.out.print(conjunto1.getDueño(conjunto1.cartaGanadoraRonda(basto3)));
 
 
         var tablero = new Tablero(mazoPrincipal);

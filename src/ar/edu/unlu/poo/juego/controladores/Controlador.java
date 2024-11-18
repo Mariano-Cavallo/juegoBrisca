@@ -7,7 +7,6 @@ import ar.edu.unlu.poo.juego.vistas.VistaGrafica;
 import java.util.ArrayList;
 
 public class Controlador {
-    private Jugador Modelojugador;
     private Tablero modeloTablero;
     //inteface
     private VistaGrafica vista;
@@ -30,6 +29,10 @@ public class Controlador {
 
     public Jugador jugadorTurnoActual(){
         return modeloTablero.getJugador(modeloTablero.getTurnoActual());
+    }
+
+    public int cantidadJugadores(){
+        return modeloTablero.cantidadJugadores();
     }
 
 

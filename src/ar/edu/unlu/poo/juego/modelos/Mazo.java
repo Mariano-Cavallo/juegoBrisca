@@ -20,6 +20,11 @@ public class Mazo extends ConjuntoDeCartas{
     public void mezclar(){
         Collections.shuffle(cartas);
     }
+    public void agregarValorCartas(){
+        for(Carta c: cartas){
+            c.setValorFicticio();
+        }
+    }
 
 
     @Override

@@ -1,10 +1,8 @@
 package ar.edu.unlu.poo.juego.modelos;
 
-import observadores.ObservadorTablero;
-
 import java.util.ArrayList;
 
-public class Tablero implements ObservadorTablero {
+public class Tablero {
     private ConjuntoDeCartas baza;
     private Carta cartaDeTriunfo;
     private Mazo mazo;
@@ -42,11 +40,16 @@ public class Tablero implements ObservadorTablero {
         return mazo.getCantidad();
     }
 
-    public Jugador getJugador(int indice){
-        return jugadores.get(indice);
+    public Jugador getJugador(int i){
+        return jugadores.get(i);
     }
 
-
+    public int cantidadJugadores(){
+        return jugadores.size();
+    }
+    public Carta robarCartaMazo(){
+        return mazo.robar();
+    }
 
     public void siguienteTurno(){
         turnoActual = (turnoActual + 1)% jugadores.size();
@@ -57,12 +60,22 @@ public class Tablero implements ObservadorTablero {
     public void setTurnoActual(int turno){
         this.turnoActual = turno;
     }
+    // ver cuando no se pueda robar
+    public void repartir(int idJugador,int cantidad){
+        for(int i = 0;i < cantidad;i++) {
+            getJugador(idJugador).agregarCarta(robarCartaMazo());
+        }
+    }
+    public void jugadorRoba(int idJugador){
+        getJugador(idJugador).agregarCarta(robarCartaMazo());
+    }
 
 
 
+    public int ganadorDeRonda(){
+        return baza.getDueño(baza.cartaGanadoraRonda(cartaDeTriunfo));
 
-
-
+    }
 
 
 

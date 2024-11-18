@@ -54,5 +54,66 @@ public class ConjuntoDeCartas {
         }
         return  puntuacion;
     }
+    public boolean hayPalo(Palo palo){
+        boolean hay = false;
+        for (Carta c: cartas){
+            if(c.getPalo() == palo){
+                hay = true;
+            }
+        }
+        return hay;
+    }
+    public Carta mayorValorFicticio(){
+        Carta mayorValor = cartas.getFirst();
+        for(Carta c: cartas){
+            if(c.getValorFicticio() < mayorValor.getValor()){
+                mayorValor = c;
+            }
+        }
+        return mayorValor;
+    }
+
+    // Mejorar nada mas para el conjunto de cartas "baza"
+    public int getDueño(Carta c){
+        int i = -1;
+        for(Carta carta: cartas){
+            i++;
+            if(carta == c){
+                return i;
+            }
+        }
+        return i;
+    }
+
+    //cambiar nombre
+    public Carta cartaGanadoraRonda(Carta Triunfo){
+        ConjuntoDeCartas posiblesGanadoras = new ConjuntoDeCartas();
+        Palo palo = Triunfo.getPalo();
+        if(hayPalo(palo)){
+            for(Carta c: cartas){
+                if (c.mismoPalo(palo)){
+                    posiblesGanadoras.agregarCarta(c);
+                }
+            }
+            return posiblesGanadoras.mayorValorFicticio();
+        }
+        else{
+            palo = cartas.getFirst().getPalo();
+            if(hayPalo(palo)){
+                for(Carta c: cartas){
+                    if (c.mismoPalo(palo)){
+                        posiblesGanadoras.agregarCarta(c);
+                    }
+                }
+                return posiblesGanadoras.mayorValorFicticio();
+            }
+            else{
+                return cartas.getFirst();
+            }
+        }
+
+    }
+
+
 
 }
