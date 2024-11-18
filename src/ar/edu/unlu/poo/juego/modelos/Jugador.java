@@ -1,6 +1,7 @@
 package ar.edu.unlu.poo.juego.modelos;
 
 public class Jugador {
+    private static int  id = -1;
     private String nombre;
     private ConjuntoDeCartas mano;
     private int puntuacion;
@@ -8,6 +9,7 @@ public class Jugador {
 
 
     public Jugador(String nombre){
+        this.id ++;
         this.nombre = nombre;
         this.mano = new ConjuntoDeCartas();
         this.puntuacion = 0;
@@ -15,8 +17,8 @@ public class Jugador {
     }
 
 
-    public Carta jugarCarta(Carta carta){
-        return mano.jugar(carta);
+    public Carta jugarCarta(int PosDeCarta){
+        return mano.jugar(PosDeCarta);
     }
 
     //dudoso
@@ -24,7 +26,13 @@ public class Jugador {
         this.cartasGanadas.agregarCartas(cartasGanadas);
     }
 
+    public void agregarCarta(Carta carta){
+        mano.agregarCarta(carta);
+    }
 
 
+    public int contarPuntuacion(){
+        return cartasGanadas.contarPuntuacion();
+    }
 
 }

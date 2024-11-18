@@ -19,10 +19,11 @@ public class ConjuntoDeCartas {
         return carta;
     }
 
-    public Carta jugar(Carta carta){
-        cartas.remove(carta);
+    public Carta jugar(int posDeCarta){
+        var cartaJugada = cartas.get(posDeCarta+1);
+        cartas.remove(posDeCarta+1);
         cantidad--;
-        return carta;
+        return cartaJugada;
     }
     public Carta sacar(Carta carta){
         cartas.remove(carta);
@@ -44,6 +45,14 @@ public class ConjuntoDeCartas {
 
     public int getCantidad() {
         return cantidad;
+    }
+
+    public int contarPuntuacion(){
+        int puntuacion = 0;
+        for(Carta c : cartas){
+            puntuacion += c.getPuntos();
+        }
+        return  puntuacion;
     }
 
 }

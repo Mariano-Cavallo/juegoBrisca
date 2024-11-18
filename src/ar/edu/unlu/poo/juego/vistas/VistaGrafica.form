@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ar.edu.unlu.poo.juego.vistas.VistaGrafica">
+  <grid id="27dc6" binding="panelPrincipal" layout-manager="FormLayout">
+    <rowspec value="center:107px:noGrow"/>
+    <rowspec value="top:10dlu:noGrow"/>
+    <rowspec value="center:40px:noGrow"/>
+    <rowspec value="top:10dlu:noGrow"/>
+    <rowspec value="center:40px:noGrow"/>
+    <rowspec value="top:10dlu:noGrow"/>
+    <rowspec value="center:40px:noGrow"/>
+    <colspec value="center:451px:grow"/>
+    <constraints>
+      <xy x="20" y="20" width="511" height="493"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="2087" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font size="48"/>
+          <text value="Brisca"/>
+        </properties>
+      </component>
+      <component id="3746e" class="javax.swing.JButton" binding="jugarButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="Jugar"/>
+        </properties>
+      </component>
+      <component id="4d10" class="javax.swing.JButton" binding="tablaDePuntuacionButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="Tabla de Puntuacion"/>
+        </properties>
+      </component>
+      <component id="d5cc" class="javax.swing.JButton" binding="salirButton" default-binding="true">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="Salir"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

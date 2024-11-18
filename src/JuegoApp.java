@@ -1,6 +1,9 @@
+import ar.edu.unlu.poo.juego.controladores.Controlador;
 import ar.edu.unlu.poo.juego.modelos.Carta;
 import ar.edu.unlu.poo.juego.modelos.Mazo;
 import ar.edu.unlu.poo.juego.modelos.Palo;
+import ar.edu.unlu.poo.juego.modelos.Tablero;
+import ar.edu.unlu.poo.juego.vistas.VistaGrafica;
 
 public class JuegoApp {
     public static void main(String[] args) {
@@ -12,7 +15,7 @@ public class JuegoApp {
         Carta copa4 = new Carta(Palo.COPA,4,0);
         Carta copa5 = new Carta(Palo.COPA,5,0);
         Carta copa6 = new Carta(Palo.COPA,6,0);
-        Carta copa7 = new Carta(Palo.COPA,7,10);
+        Carta copa7 = new Carta(Palo.COPA,7,0);
         Carta copa10 = new Carta(Palo.COPA,10,2);
         Carta copa11 = new Carta(Palo.COPA,11,3);
         Carta copa12 = new Carta(Palo.COPA,12,4);
@@ -24,7 +27,7 @@ public class JuegoApp {
         Carta oro4 = new Carta(Palo.ORO,4,0);
         Carta oro5 = new Carta(Palo.ORO,5,0);
         Carta oro6 = new Carta(Palo.ORO,6,0);
-        Carta oro7 = new Carta(Palo.ORO,7,10);
+        Carta oro7 = new Carta(Palo.ORO,7,0);
         Carta oro10 = new Carta(Palo.ORO,10,2);
         Carta oro11 = new Carta(Palo.ORO,11,3);
         Carta oro12 = new Carta(Palo.ORO,12,4);
@@ -36,7 +39,7 @@ public class JuegoApp {
         Carta basto4 = new Carta(Palo.BASTO,4,0);
         Carta basto5 = new Carta(Palo.BASTO,5,0);
         Carta basto6 = new Carta(Palo.BASTO,6,0);
-        Carta basto7 = new Carta(Palo.BASTO,7,10);
+        Carta basto7 = new Carta(Palo.BASTO,7,0);
         Carta basto10 = new Carta(Palo.BASTO,10,2);
         Carta basto11 = new Carta(Palo.BASTO,11,3);
         Carta basto12 = new Carta(Palo.BASTO,12,4);
@@ -48,7 +51,7 @@ public class JuegoApp {
         Carta espada4 = new Carta(Palo.ESPADA,4,0);
         Carta espada5 = new Carta(Palo.ESPADA,5,0);
         Carta espada6 = new Carta(Palo.ESPADA,6,0);
-        Carta espada7 = new Carta(Palo.ESPADA,7,10);
+        Carta espada7 = new Carta(Palo.ESPADA,7,0);
         Carta espada10 = new Carta(Palo.ESPADA,10,2);
         Carta espada11 = new Carta(Palo.ESPADA,11,3);
         Carta espada12 = new Carta(Palo.ESPADA,12,4);
@@ -99,13 +102,14 @@ public class JuegoApp {
         mazoPrincipal.agregarCarta(basto10);
         mazoPrincipal.agregarCarta(basto11);
         mazoPrincipal.agregarCarta(basto12);
-
-
-
         mazoPrincipal.mezclar();
-        System.out.print(mazoPrincipal);
 
 
+        var tablero = new Tablero(mazoPrincipal);
+        var controlador = new Controlador(tablero);
+        var vista = new VistaGrafica(controlador);
+        controlador.setVista(vista);
+        vista.setVisible(true);
 
     }
 }

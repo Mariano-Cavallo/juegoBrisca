@@ -16,6 +16,15 @@ public class Carta {
         this.dueño = dueño;
     }
 
+    public Jugador getDueño() {
+        return dueño;
+    }
+
+
+    public int getPuntos(){
+        return puntos;
+    }
+
     /*
     @Override
     public String toString() {
