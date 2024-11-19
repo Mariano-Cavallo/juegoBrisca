@@ -50,13 +50,15 @@ public class VistaGrafica extends JFrame{
 
     private void onPuntuacion() {
         mostrarMensaje("Apretaste Puntuacion ");
+
     }
 
     private void onJugar() {
-        //Agregar jugador es diferente
-        var ventanaAgregarJugador = new VistaCantidadJugadores(this);
+        var crearJugador = new CrearJugador(this,controlador);
+        crearJugador.setVisible(true);
 
-        ventanaAgregarJugador.setVisible(true);
+
+
     }
     public void mostrarMensaje(String mensaje) {
         var ventanaMensaje = new Mensaje(mensaje);

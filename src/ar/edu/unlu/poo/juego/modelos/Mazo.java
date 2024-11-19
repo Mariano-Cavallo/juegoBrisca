@@ -5,7 +5,8 @@ import java.util.Collections;
 
 public class Mazo extends ConjuntoDeCartas{
 
-
+    //hacer
+    private boolean puedeRobar;
 
     public Mazo(){
         super();

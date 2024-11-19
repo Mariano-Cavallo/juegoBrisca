@@ -5,6 +5,7 @@ import ar.edu.unlu.poo.juego.modelos.Tablero;
 import ar.edu.unlu.poo.juego.vistas.VistaGrafica;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controlador {
     private Tablero modeloTablero;
@@ -33,6 +34,10 @@ public class Controlador {
 
     public int cantidadJugadores(){
         return modeloTablero.cantidadJugadores();
+    }
+
+    public List<Jugador> obtenerJugadores(){
+        return new ArrayList<Jugador>(modeloTablero.getJugadores());
     }
 
 

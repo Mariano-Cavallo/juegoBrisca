@@ -20,10 +20,8 @@ public class ConjuntoDeCartas {
     }
 
     public Carta jugar(int posDeCarta){
-        var cartaJugada = cartas.get(posDeCarta+1);
-        cartas.remove(posDeCarta+1);
         cantidad--;
-        return cartaJugada;
+        return cartas.remove(posDeCarta+1);
     }
     public Carta sacar(Carta carta){
         cartas.remove(carta);
@@ -63,6 +61,7 @@ public class ConjuntoDeCartas {
         }
         return hay;
     }
+    //OJO TIENEN QUE SER DEL MISMO PALO
     public Carta mayorValorFicticio(){
         Carta mayorValor = cartas.getFirst();
         for(Carta c: cartas){
@@ -73,7 +72,7 @@ public class ConjuntoDeCartas {
         return mayorValor;
     }
 
-    // Mejorar nada mas para el conjunto de cartas "baza"
+    // Mejorar, nada mas para el conjunto de cartas "baza"
     public int getDueño(Carta c){
         int i = -1;
         for(Carta carta: cartas){

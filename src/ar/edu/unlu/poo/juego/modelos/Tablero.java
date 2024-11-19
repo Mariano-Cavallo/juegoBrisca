@@ -1,6 +1,7 @@
 package ar.edu.unlu.poo.juego.modelos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tablero {
     private ConjuntoDeCartas baza;
@@ -16,9 +17,17 @@ public class Tablero {
         this.baza = new ConjuntoDeCartas();
         jugadores = new ArrayList<>();
     }
-
+    public List<Jugador> getJugadores(){
+        return jugadores;
+    }
     public void agregarJugador(Jugador jugador){
         jugadores.add(jugador);
+    }
+    public int cantidadJugadores(){
+        return jugadores.size();
+    }
+    public void agregarCartaBaza(Carta carta){
+        baza.agregarCarta(carta);
     }
 
     public void setCartaDeTriunfo(Carta carta){
@@ -29,9 +38,6 @@ public class Tablero {
         return cartaDeTriunfo;
     }
 
-    public void agregarCartaBaza(Carta carta){
-        baza.agregarCarta(carta);
-    }
 
     public ConjuntoDeCartas darBaza(){
         return baza;
@@ -44,9 +50,6 @@ public class Tablero {
         return jugadores.get(i);
     }
 
-    public int cantidadJugadores(){
-        return jugadores.size();
-    }
     public Carta robarCartaMazo(){
         return mazo.robar();
     }

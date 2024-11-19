@@ -106,11 +106,24 @@ public class JuegoApp {
         conjunto1.agregarCarta(copa6);
         conjunto1.agregarCarta(basto12);
         conjunto1.agregarCarta(oro4);
-        System.out.print(conjunto1.cartaGanadoraRonda(basto3));
-        System.out.print(conjunto1.getDueño(conjunto1.cartaGanadoraRonda(basto3)));
+        System.out.print(conjunto1.cartaGanadoraRonda(copa2));
+        System.out.print(conjunto1.getDueño(conjunto1.cartaGanadoraRonda(copa2)));
+        Jugador j1 = new Jugador("mari");
+        Jugador j2 = new Jugador("feli");
+        Jugador j3 = new Jugador("juan");
+        Jugador j4 = new Jugador("luqui");
+        System.out.print(j1);
+        System.out.print(j2);
+        System.out.print(j3);
+        System.out.print(j4);
+
 
 
         var tablero = new Tablero(mazoPrincipal);
+        tablero.agregarJugador(j1);
+        tablero.agregarJugador(j2);
+        tablero.agregarJugador(j3);
+        tablero.agregarJugador(j4);
         var controlador = new Controlador(tablero);
         var vista = new VistaGrafica(controlador);
         controlador.setVista(vista);

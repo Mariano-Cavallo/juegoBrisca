@@ -1,7 +1,8 @@
 package ar.edu.unlu.poo.juego.modelos;
 
 public class Jugador {
-    private static int  id = -1;
+    private static int  contadorId = -1;
+    private int id;
     private String nombre;
     private ConjuntoDeCartas mano;
     private int puntuacion;
@@ -9,7 +10,8 @@ public class Jugador {
 
 
     public Jugador(String nombre){
-        this.id ++;
+        contadorId ++;
+        this.id = contadorId;
         this.nombre = nombre;
         this.mano = new ConjuntoDeCartas();
         this.puntuacion = 0;
@@ -35,4 +37,18 @@ public class Jugador {
         return cartasGanadas.contarPuntuacion();
     }
 
+    public String getNombre(){
+        return this.nombre;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "nombre='" + nombre + '\'' +
+                "id=" + id;
+    }
 }
