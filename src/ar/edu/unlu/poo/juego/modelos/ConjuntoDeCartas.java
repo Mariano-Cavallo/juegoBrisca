@@ -7,7 +7,10 @@ public class ConjuntoDeCartas {
     protected int cantidad;
 
 
+    public Carta getUltimaAgregada(){
+        return cartas.getLast();
 
+    }
     public ConjuntoDeCartas(){
         this.cartas = new ArrayList<>();
         this.cantidad = 0;
@@ -21,12 +24,15 @@ public class ConjuntoDeCartas {
 
     public Carta jugar(int posDeCarta){
         cantidad--;
-        return cartas.remove(posDeCarta+1);
+        return cartas.remove(posDeCarta-1);
     }
     public Carta sacar(Carta carta){
         cartas.remove(carta);
         cantidad--;
         return carta;
+    }
+    public Carta getCarta(int posDeCarta){
+        return cartas.get(posDeCarta-1);
     }
 
     public ArrayList<Carta> devolverCartas(){
@@ -37,7 +43,7 @@ public class ConjuntoDeCartas {
     }
 
     public void agregarCartas(ConjuntoDeCartas conjuntoDeCartas){
-        cartas.addAll(conjuntoDeCartas.devolverCartas());
+        cartas.addAll(conjuntoDeCartas.cartas);
         this.cantidad += conjuntoDeCartas.getCantidad();
     }
 
@@ -52,67 +58,25 @@ public class ConjuntoDeCartas {
         }
         return  puntuacion;
     }
-    public boolean hayPalo(Palo palo){
-        boolean hay = false;
-        for (Carta c: cartas){
-            if(c.getPalo() == palo){
-                hay = true;
-            }
-        }
-        return hay;
-    }
+
     //OJO TIENEN QUE SER DEL MISMO PALO
-    public Carta mayorValorFicticio(){
-        Carta mayorValor = cartas.getFirst();
+    public Carta mayorPuntuacion(){
+        Carta mayorPuntos = cartas.getFirst();
         for(Carta c: cartas){
-            if(c.getValorFicticio() < mayorValor.getValor()){
-                mayorValor = c;
+            if(c.getPuntos() > mayorPuntos.getPuntos()){
+                mayorPuntos = c;
             }
         }
-        return mayorValor;
-    }
-
-    // Mejorar, nada mas para el conjunto de cartas "baza"
-    public int getDueño(Carta c){
-        int i = -1;
-        for(Carta carta: cartas){
-            i++;
-            if(carta == c){
-                return i;
-            }
-        }
-        return i;
-    }
-
-    //cambiar nombre
-    public Carta cartaGanadoraRonda(Carta Triunfo){
-        ConjuntoDeCartas posiblesGanadoras = new ConjuntoDeCartas();
-        Palo palo = Triunfo.getPalo();
-        if(hayPalo(palo)){
-            for(Carta c: cartas){
-                if (c.mismoPalo(palo)){
-                    posiblesGanadoras.agregarCarta(c);
-                }
-            }
-            return posiblesGanadoras.mayorValorFicticio();
-        }
-        else{
-            palo = cartas.getFirst().getPalo();
-            if(hayPalo(palo)){
-                for(Carta c: cartas){
-                    if (c.mismoPalo(palo)){
-                        posiblesGanadoras.agregarCarta(c);
-                    }
-                }
-                return posiblesGanadoras.mayorValorFicticio();
-            }
-            else{
-                return cartas.getFirst();
-            }
-        }
-
+        return mayorPuntos;
     }
 
 
-
+    public void borrar() {
+        cartas.clear();
+        cantidad = 0;
+    }
 }
+
+
+
+

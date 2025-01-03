@@ -18,13 +18,16 @@ public class Jugador {
         this.cartasGanadas = new ConjuntoDeCartas();
     }
 
+    public Carta mostrarCarta(int numeroCarta){
+        return mano.getCarta(numeroCarta);
+    }
 
     public Carta jugarCarta(int PosDeCarta){
         return mano.jugar(PosDeCarta);
     }
 
     //dudoso
-    public void agregarCartasGanadas(ConjuntoDeCartas CartasGanada){
+    public void agregarCartasGanadas(ConjuntoDeCartas cartasGanadas){
         this.cartasGanadas.agregarCartas(cartasGanadas);
     }
 
@@ -43,6 +46,10 @@ public class Jugador {
 
     public int getId() {
         return id;
+    }
+
+    public int cantidadCartas(){
+        return mano.cantidad;
     }
 
     @Override

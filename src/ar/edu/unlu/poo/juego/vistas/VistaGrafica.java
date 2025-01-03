@@ -56,6 +56,7 @@ public class VistaGrafica extends JFrame{
     private void onJugar() {
         var crearJugador = new CrearJugador(this,controlador);
         crearJugador.setVisible(true);
+        var tablero = new TableroDeCartas(this,controlador);
 
 
 

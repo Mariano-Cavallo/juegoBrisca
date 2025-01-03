@@ -1,5 +1,6 @@
 import ar.edu.unlu.poo.juego.controladores.Controlador;
 import ar.edu.unlu.poo.juego.modelos.*;
+import ar.edu.unlu.poo.juego.vistas.Consola.VistaConsolaGrafica;
 import ar.edu.unlu.poo.juego.vistas.VistaGrafica;
 
 public class JuegoApp {
@@ -99,35 +100,53 @@ public class JuegoApp {
         mazoPrincipal.agregarCarta(basto10);
         mazoPrincipal.agregarCarta(basto11);
         mazoPrincipal.agregarCarta(basto12);
-        mazoPrincipal.agregarValorCartas();
         mazoPrincipal.mezclar();
-        ConjuntoDeCartas conjunto1 = new ConjuntoDeCartas();
-        conjunto1.agregarCarta(basto1);
-        conjunto1.agregarCarta(copa6);
+        Baza conjunto1 = new Baza();
         conjunto1.agregarCarta(basto12);
+        conjunto1.agregarCarta(copa6);
         conjunto1.agregarCarta(oro4);
-        System.out.print(conjunto1.cartaGanadoraRonda(copa2));
-        System.out.print(conjunto1.getDueño(conjunto1.cartaGanadoraRonda(copa2)));
-        Jugador j1 = new Jugador("mari");
-        Jugador j2 = new Jugador("feli");
-        Jugador j3 = new Jugador("juan");
-        Jugador j4 = new Jugador("luqui");
-        System.out.print(j1);
-        System.out.print(j2);
-        System.out.print(j3);
-        System.out.print(j4);
+        conjunto1.agregarCarta(basto1);
+        System.out.print(conjunto1.cartaGanadoraRonda(espada2));
+        System.out.print(conjunto1.getDueño(conjunto1.cartaGanadoraRonda(espada2),1,4));
+        System.out.print("jugador \n");
+
+
+
+
+        //Jugador j1 = new Jugador("mari");
+        //Jugador j2 = new Jugador("Agus");
+
+
+        //System.out.print(j1);
+        //System.out.print(j2);
+
 
 
 
         var tablero = new Tablero(mazoPrincipal);
-        tablero.agregarJugador(j1);
-        tablero.agregarJugador(j2);
-        tablero.agregarJugador(j3);
-        tablero.agregarJugador(j4);
+        //tablero.agregarJugador(j1);
+        //tablero.agregarJugador(j2);
+
         var controlador = new Controlador(tablero);
-        var vista = new VistaGrafica(controlador);
-        controlador.setVista(vista);
-        vista.setVisible(true);
+        var controlador2 = new Controlador(tablero);
+
+
+        var vistaConsola = new VistaConsolaGrafica(controlador);
+        var vistaConsola2 = new VistaConsolaGrafica(controlador2);
+
+
+
+        tablero.agregarObservador(controlador);
+        tablero.agregarObservador(controlador2);
+
+
+
+        controlador.setVista(vistaConsola);
+        controlador2.setVista(vistaConsola2);
+
+        vistaConsola.setVisible(true);
+        vistaConsola2.setVisible(true);
+
 
     }
 }
