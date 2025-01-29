@@ -9,6 +9,8 @@ public enum Eventos {
     JUEGO_GANADO,
     AGREGAR_JUGADOR,
     SIGUIENTE_TURNO,
+    TERMINAR_PARTIDA,
+    REINICIO_PARTIDA,
     ;
 
 }

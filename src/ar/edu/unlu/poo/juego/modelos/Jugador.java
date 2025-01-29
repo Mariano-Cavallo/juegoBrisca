@@ -9,6 +9,10 @@ public class Jugador {
     private ConjuntoDeCartas cartasGanadas;
 
 
+    public void reiniciarContadorId(){
+        contadorId = -1;
+    }
+
     public Jugador(String nombre){
         contadorId ++;
         this.id = contadorId;
@@ -36,8 +40,12 @@ public class Jugador {
     }
 
 
-    public int contarPuntuacion(){
-        return cartasGanadas.contarPuntuacion();
+    public void contarPuntuacion(){
+        puntuacion = cartasGanadas.contarPuntuacion();
+    }
+
+    public int getPuntuacion(){
+        return puntuacion;
     }
 
     public String getNombre(){
@@ -52,10 +60,34 @@ public class Jugador {
         return mano.cantidad;
     }
 
+    public boolean tieneEl7DelPalo(Carta carta){
+        for(Carta c : mano.cartas){
+            if(c.mismoPalo(carta.getPalo()) && c.getValor() == 7){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     @Override
     public String toString() {
         return "Jugador{" +
                 "nombre='" + nombre + '\'' +
                 "id=" + id;
+    }
+
+    public Carta get7Triunfo(Carta carta) {
+        for(Carta c : mano.cartas){
+            if(c.mismoPalo(carta.getPalo()) && c.getValor() == 7){
+                return mano.sacar(c);
+            }
+        }
+        return null;
+    }
+
+    public void reiniciarPuntuacion() {
+        this.puntuacion = 0;
+        this.cartasGanadas.borrar();
     }
 }

@@ -4,13 +4,14 @@ package ar.edu.unlu.poo.juego.vistas.Consola;
 import ar.edu.unlu.poo.juego.controladores.Controlador;
 import ar.edu.unlu.poo.juego.modelos.Carta;
 import ar.edu.unlu.poo.juego.modelos.Jugador;
+import ar.edu.unlu.poo.juego.vistas.IVista;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class VistaConsolaGrafica extends JFrame {
+public class VistaConsolaGrafica extends JFrame implements IVista {
     private  Controlador controlador;
     private JTextArea txtSalida;
     private JPanel panelPrincipal;
@@ -35,7 +36,6 @@ public class VistaConsolaGrafica extends JFrame {
                 txtEntrada.setText("");
             }
         });
-
         mostrarMenuPrincipal();
     }
 
@@ -64,18 +64,70 @@ public class VistaConsolaGrafica extends JFrame {
             case ESPERANDO_TURNO:
                 procesarEsperandoTurno(entrada);
                 break;
+                //no hecho
+            case CAMBIANDO_CARTA_TRIUNFO:
+                procesarCambioDeCarta(entrada);
+                break;
+            case PARTIDA_TERMINADA:
+                procesarPartidaTerminada(entrada);
+                break;
 
         }
 
     }
 
-    private void procesarEsperandoTurno(String entrada) {
-        mostraTablero();
-        println("Esperando Turno");
+    private void procesarPartidaTerminada(String entrada) {
+        switch (entrada){
+            case "1":
+                volverAJugar();
+                break;
+            case "2":
+                break;
+            case "3":
+                controlador.cerrarJugador();
+                break;
+        }
+    }
+
+    private void volverAJugar() {
+        controlador.reiniciarPartida();
+    }
+
+    public void terminarPartida() {
+        estado = EstadoVistaConsola.PARTIDA_TERMINADA;
+        limpiarPantalla();
+        println("-------------|PARTIDA TERMINADA| -------------");
+        println("Ganador/es de la partida : " + controlador.ganadorDePartida()) ;
+        println("Con una puntuacion de  : " + controlador.puntuacionGanadora()) ;
+
+
+        println("1. volver a jugar");
+        println("2. Guardar Puntuacion");
+        println("3. Salir");
     }
 
 
+    // no hecho
+    private void procesarCambioDeCarta(String entrada) {
+        println(entrada);
+        println("Quiere cambiar la carta de triunfo por el 7? S/N");
+        switch (entrada.toUpperCase()) {
+            case "S": controlador.cambiarTriunfo();
+                break;
+            //dudoso
+            case "N":
+                break;
+
+        }
+    }
+
+    private void procesarEsperandoTurno(String entrada) {
+        mostraTablero();
+        println("-Esperando Turno-");
+    }
+
     // pasar de estado
+
     private void procesarJugandoTurno(String entrada) {
         println(entrada);
         switch (entrada){
@@ -94,12 +146,12 @@ public class VistaConsolaGrafica extends JFrame {
         }
 
     }
-
     private void mostrarAgragandoJugador(){
         estado = EstadoVistaConsola.AGREGANDO_JUGADOR;
         println("Ingrese su nombre: ");
 
     }
+
     private void procesarAgregandoJugador(String entrada) {
         controlador.crearJugadorEnTablero(entrada);
         println("Jugador agregado");
@@ -125,6 +177,7 @@ public class VistaConsolaGrafica extends JFrame {
 
 
     private void mostrarMenuPrincipal() {
+        limpiarPantalla();
         estado = EstadoVistaConsola.MENU_PRINCIPAL;
         println("Menú Principal:");
         println("1. Jugar");
@@ -133,8 +186,8 @@ public class VistaConsolaGrafica extends JFrame {
 
         print("Seleccione una opción: ");
     }
-
-    private void mostrarEsperandoJugadores() {
+    //ver si es privado o publico
+    public void mostrarEsperandoJugadores() {
         estado = EstadoVistaConsola.ESPERANDO_JUGADOR;
         limpiarPantalla();
         println("Esperando a uno o mas jugadores");
@@ -143,16 +196,14 @@ public class VistaConsolaGrafica extends JFrame {
         println("2. Salir");
 
     }
+
     private void procesarEsperandoJugadores(String entrada){
         println(entrada);
         switch (entrada){
             //cambiar
             case "1":
                 if(controlador.cantidadJugadores()>0) {
-                    mostraTablero();
-                    if(controlador.esMiTurno()){
-                        estado = EstadoVistaConsola.JUGANDO_TURNO;
-                    }else {estado = EstadoVistaConsola.ESPERANDO_TURNO;}
+                    controlador.empezarPartida();
                 }
                 else{println("Faltan Jugadores");}
                 break;
@@ -188,8 +239,8 @@ public class VistaConsolaGrafica extends JFrame {
         println("Baza:");
         mostrarBaza();
     }
-
     //espacio entre la baza (arreglar)
+
     private void mostrarBaza() {
         if(controlador.cantidadCartasBaza()>0){
             for(int i=1;i <= controlador.cantidadCartasBaza();i++){
@@ -206,13 +257,13 @@ public class VistaConsolaGrafica extends JFrame {
     }
 
 
-    private void mostrarCarta(Carta carta){
+    public void mostrarCarta(Carta carta){
         println(carta.toString());
     }
 
 
 
-    private void limpiarPantalla(){
+    public void limpiarPantalla(){
         txtSalida.setText("");
     }
 
@@ -229,12 +280,40 @@ public class VistaConsolaGrafica extends JFrame {
     }
 
 
-
-    public void imprimir(String s) {
-        println(s);
-    }
-
     public void actualizarvista() {
         mostraTablero();
     }
+
+    public void actualizarAgregadoJugador() {
+        if(estado == EstadoVistaConsola.ESPERANDO_JUGADOR){
+            mostrarEsperandoJugadores();
+        }
+    }
+
+    public void volverMenuPincipal() {
+        mostrarMenuPrincipal();
+    }
+
+    @Override
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
+    }
+
+    @Override
+    public void mostrarMensaje(String mensaje) {
+        println(mensaje);
+    }
+
+    @Override
+    public void iniciar() {
+        setVisible(true);
+
+    }
+
+    @Override
+    public void cerrar() {
+        setVisible(false);
+    }
+
+
 }

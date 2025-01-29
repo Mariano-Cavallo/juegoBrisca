@@ -20,12 +20,15 @@ public class Tablero implements Observado {
 
 
 
-    public Tablero(Mazo mazo){
-        this.mazo = mazo;
+    public Tablero(){
+        this.mazo = new Mazo();
         this.baza = new Baza();
         jugadores = new ArrayList<>();
     }
 
+    public void nuevoMazo(){
+        this.mazo = new Mazo();
+    }
 
     public int getCantidadBaza(){
         return baza.cantidad;
@@ -112,6 +115,11 @@ public class Tablero implements Observado {
     }
 
     @Override
+    public void borrarObservador(Observador observador) {
+        this.observadores.remove(observador);
+    }
+
+    @Override
     public void notificarObservador(Eventos evento) {
         for (Observador observador : observadores) {
             observador.notificar(evento);
@@ -157,4 +165,83 @@ public class Tablero implements Observado {
     }
 
 
+    public int jugadorPuedeCambiarLaCartaDeTriunfo() {
+        int idJugador = -1;
+        for(Jugador jugador : jugadores){
+            if(jugador.tieneEl7DelPalo(cartaDeTriunfo)){
+                idJugador = jugador.getId();
+                break;
+            }
+        }
+        return idJugador;
+    }
+
+    public void cambiaTriunfo(int idJugador) {
+        getJugador(idJugador).agregarCarta(cartaDeTriunfo);
+        cartaDeTriunfo = getJugador(idJugador).get7Triunfo(cartaDeTriunfo);
+    }
+
+    public boolean sePuedeRobarCarta() {
+        return cantidadJugadores() <= getCantidadMazo();
+    }
+
+    //se fija si el primer jugador tiene almenos una carta
+    public boolean jugadoresTienenCartas() {
+        return getJugador(0).cantidadCartas() > 0;
+    }
+
+    public void contarTodosLosPuntos(){
+        for(Jugador j : jugadores){
+            j.contarPuntuacion();
+        }
+        notificarObservador(Eventos.TERMINAR_PARTIDA);
+    }
+
+    public int ganadorHasta3Jugadores(){
+        int ganador = 0;
+        int puntuacionGanadora = 0 ;
+        int flag = 0 ;
+        for (Jugador j : jugadores){
+            if(flag == 0){
+                puntuacionGanadora = j.getPuntuacion();
+                ganador = j.getId();
+                flag ++;
+            }
+            if(j.getPuntuacion() > puntuacionGanadora){
+                ganador = j.getId();
+                puntuacionGanadora = j.getPuntuacion();
+            }
+        }
+        return ganador;
+    }
+
+    public int ganador4Jugadores(){
+        int puntosEquipo1;
+        int puntosEquipo2;
+        puntosEquipo1 = getJugador(0).getPuntuacion() + getJugador(2).getPuntuacion();
+        puntosEquipo2 = getJugador(1).getPuntuacion() + getJugador(3).getPuntuacion();
+
+        if(puntosEquipo1 > puntosEquipo2){
+            return 0;
+        }
+        else{
+            return 1;
+        }
+
+    }
+
+
+    public void empezarPartida() {
+        notificarObservador(Eventos.COMENZAR_PARTIDA);
+    }
+
+    public void borrarJugador(int idJugador) {
+        jugadores.remove(idJugador);
+    }
+
+    public void borrarJugadores() {
+        jugadores.get(0).reiniciarContadorId();
+        jugadores.clear();
+        notificarObservador(Eventos.REINICIO_PARTIDA);
+    }
 }

@@ -1,4 +1,4 @@
-package ar.edu.unlu.poo.juego.vistas;
+package ar.edu.unlu.poo.juego.vistas.grafica;
 
 import ar.edu.unlu.poo.juego.controladores.Controlador;
 
@@ -28,8 +28,7 @@ public class CrearJugador extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 padre.agregarJugador(txtNombre.getText());
-                var ventanaEsperaJugadores = new EsperandoJugadores(padre,controlador);
-                ventanaEsperaJugadores.setVisible(true);
+                padre.agregarVentanaDeEspera();
                 dispose();
             }
         });

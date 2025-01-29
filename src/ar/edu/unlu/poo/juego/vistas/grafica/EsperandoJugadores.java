@@ -1,10 +1,12 @@
-package ar.edu.unlu.poo.juego.vistas;
+package ar.edu.unlu.poo.juego.vistas.grafica;
 
 import ar.edu.unlu.poo.juego.controladores.Controlador;
 import ar.edu.unlu.poo.juego.modelos.Jugador;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class EsperandoJugadores extends JFrame{
@@ -25,14 +27,25 @@ public class EsperandoJugadores extends JFrame{
         setContentPane(panelPrincipal);
         setSize(200, 180);
         this.padre = padre;
+        this.controlador = padre.getControlador();
 
         modeloTabla = new DefaultTableModel();
         tablaJugadores.setModel(modeloTabla);
         modeloTabla.addColumn("ID");
         modeloTabla.addColumn("NOMBRE");
         mostrarJugadores(controlador.obtenerJugadores());
+        padre.estadoDeVentanaEsperaJugadore(true);
 
 
+        empezarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                padre.estadoDeVentanaEsperaJugadore(false);
+                padre.comenzarPartida();
+                // funcion empezar partida
+
+            }
+        });
     }
     public void mostrarJugadores(List<Jugador> jugadores){
         modeloTabla.setRowCount(0);
@@ -42,6 +55,9 @@ public class EsperandoJugadores extends JFrame{
                     j.getId()
             });
         }
+    }
+    public void actualizarEspera(){
+        mostrarJugadores(controlador.obtenerJugadores());
     }
 
 
