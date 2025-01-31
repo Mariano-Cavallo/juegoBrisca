@@ -1,6 +1,7 @@
 package ar.edu.unlu.poo.juego.modelos;
 
 public enum Eventos {
+    REINICIAR_BAZA,
     COMENZAR_PARTIDA,
     CARTA_ROBADA,
     RONDA_TERMINADA,

@@ -24,10 +24,11 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
     public VistaConsolaGrafica(Controlador controlador) {
         setTitle("Brisca Consola");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 350);
+        setSize(500, 700);
         setLocationRelativeTo(null);
         setContentPane(panelPrincipal);
         this.controlador = controlador;
+        txtSalida.setEditable(false);
 
         btnEnter.addActionListener(new ActionListener() {
             @Override
@@ -63,10 +64,6 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
                 break;
             case ESPERANDO_TURNO:
                 procesarEsperandoTurno(entrada);
-                break;
-                //no hecho
-            case CAMBIANDO_CARTA_TRIUNFO:
-                procesarCambioDeCarta(entrada);
                 break;
             case PARTIDA_TERMINADA:
                 procesarPartidaTerminada(entrada);
@@ -106,20 +103,6 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
         println("3. Salir");
     }
 
-
-    // no hecho
-    private void procesarCambioDeCarta(String entrada) {
-        println(entrada);
-        println("Quiere cambiar la carta de triunfo por el 7? S/N");
-        switch (entrada.toUpperCase()) {
-            case "S": controlador.cambiarTriunfo();
-                break;
-            //dudoso
-            case "N":
-                break;
-
-        }
-    }
 
     private void procesarEsperandoTurno(String entrada) {
         mostraTablero();
@@ -239,7 +222,17 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
         println("Baza:");
         mostrarBaza();
     }
-    //espacio entre la baza (arreglar)
+
+    @Override
+    public void reiniciarBaza() {
+        mostraTablero();
+    }
+
+    @Override
+    public void nuevaBaza() {
+        println("Baza actual : \n");
+
+    }
 
     private void mostrarBaza() {
         if(controlador.cantidadCartasBaza()>0){
@@ -282,6 +275,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
 
     public void actualizarvista() {
         mostraTablero();
+
     }
 
     public void actualizarAgregadoJugador() {

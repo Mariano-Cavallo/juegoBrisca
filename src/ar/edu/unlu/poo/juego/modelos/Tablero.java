@@ -150,9 +150,10 @@ public class Tablero implements Observado {
     }
 
     public void darBazaAlGanador() {
+
+        notificarObservador(Eventos.RONDA_TERMINADA);
         getJugador(ganadorDeRonda()).agregarCartasGanadas(this.baza);
         this.baza.borrar();
-        notificarObservador(Eventos.RONDA_TERMINADA);
     }
 
     public int getUltimoGanador() {
@@ -176,10 +177,7 @@ public class Tablero implements Observado {
         return idJugador;
     }
 
-    public void cambiaTriunfo(int idJugador) {
-        getJugador(idJugador).agregarCarta(cartaDeTriunfo);
-        cartaDeTriunfo = getJugador(idJugador).get7Triunfo(cartaDeTriunfo);
-    }
+
 
     public boolean sePuedeRobarCarta() {
         return cantidadJugadores() <= getCantidadMazo();

@@ -15,6 +15,7 @@ public class CrearJugador extends JFrame{
 
 
     public CrearJugador(VistaGrafica padre, Controlador controlador){
+        setResizable(false);
         setTitle("Nuevo Jugador");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);

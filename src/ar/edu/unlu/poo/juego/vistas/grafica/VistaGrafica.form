@@ -7,6 +7,8 @@
     <rowspec value="top:10dlu:noGrow"/>
     <rowspec value="center:40px:noGrow"/>
     <rowspec value="top:10dlu:noGrow"/>
+    <rowspec value="center:41px:noGrow"/>
+    <rowspec value="top:10dlu:noGrow"/>
     <rowspec value="center:40px:noGrow"/>
     <colspec value="center:451px:grow"/>
     <constraints>
@@ -22,6 +24,7 @@
         </constraints>
         <properties>
           <font size="48"/>
+          <foreground color="-16777216"/>
           <text value="Brisca"/>
         </properties>
       </component>
@@ -43,9 +46,18 @@
           <text value="Tabla de Puntuacion"/>
         </properties>
       </component>
-      <component id="d5cc" class="javax.swing.JButton" binding="salirButton" default-binding="true">
+      <component id="d5cc" class="javax.swing.JButton" binding="comoJugar">
         <constraints>
           <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="Como jugar ?"/>
+        </properties>
+      </component>
+      <component id="c2ff7" class="javax.swing.JButton" binding="salirButton">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <forms/>
         </constraints>
         <properties>

@@ -40,4 +40,7 @@ public class Carta {
     }
 
 
+    public String getNombre() {
+        return valor + " " +getPalo();
+    }
 }

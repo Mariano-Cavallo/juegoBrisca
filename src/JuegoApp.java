@@ -37,7 +37,7 @@ public class JuegoApp {
         controlador.setVista(vistaConsola);
         controlador2.setVista(vistaGrafica);
         //controlador3.setVista(vistaGrafica2);
-       // controlador4.setVista(vistaGrafica3);
+        //controlador4.setVista(vistaGrafica3);
 
 
 
@@ -45,7 +45,7 @@ public class JuegoApp {
 
         vistaConsola.iniciar();
         vistaGrafica.iniciar();
-       // vistaGrafica2.iniciar();
+        //vistaGrafica2.iniciar();
         //vistaGrafica3.iniciar();
 
 

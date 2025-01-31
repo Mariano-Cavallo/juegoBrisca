@@ -46,7 +46,7 @@ public class Mazo extends ConjuntoDeCartas{
         Carta oro6 = new Carta(Palo.ORO,6,0);
         Carta oro7 = new Carta(Palo.ORO,7,0);
         Carta oro10 = new Carta(Palo.ORO,10,2);
-        */
+
         Carta oro11 = new Carta(Palo.ORO,11,3);
         Carta oro12 = new Carta(Palo.ORO,12,4);
         //Cartas Basto
@@ -57,6 +57,8 @@ public class Mazo extends ConjuntoDeCartas{
         Carta basto5 = new Carta(Palo.BASTO,5,0);
         Carta basto6 = new Carta(Palo.BASTO,6,0);
         Carta basto7 = new Carta(Palo.BASTO,7,0);
+
+        */
         Carta basto10 = new Carta(Palo.BASTO,10,2);
         Carta basto11 = new Carta(Palo.BASTO,11,3);
         Carta basto12 = new Carta(Palo.BASTO,12,4);
@@ -92,7 +94,7 @@ public class Mazo extends ConjuntoDeCartas{
         agregarCarta(oro6);
         agregarCarta(oro7);
         agregarCarta(oro10);
-        */
+
         agregarCarta(oro11);
         agregarCarta(oro12);
         agregarCarta(basto1);
@@ -103,6 +105,8 @@ public class Mazo extends ConjuntoDeCartas{
         agregarCarta(basto5);
         agregarCarta(basto6);
         agregarCarta(basto7);
+
+        */
         agregarCarta(basto10);
         agregarCarta(basto11);
         agregarCarta(basto12);
@@ -116,6 +120,7 @@ public class Mazo extends ConjuntoDeCartas{
         agregarCarta(espada10);
         agregarCarta(espada11);
         agregarCarta(espada12);
+
     }
 
     @Override

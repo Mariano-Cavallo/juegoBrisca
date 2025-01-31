@@ -100,12 +100,8 @@ public class Controlador implements Observador {
                 break;
             case RONDA_TERMINADA:
                 vista.actualizarvista();
-                //funcion para esto
-                vista.mostrarMensaje("El ganador de la ronda es "+ modeloTablero.getJugador((modeloTablero.getUltimoGanador())).getNombre() );
-                break;
-            case CAMBIO_TRIUNFO:
-                //funcion para esto
-                vista.mostrarMensaje("Esperando al cambio de carta de triunfo");
+                vista.mostrarMensaje("El ganador de la ronda es "+ modeloTablero.getJugador((modeloTablero.getUltimoGanador())).getNombre());
+                vista.nuevaBaza();
                 break;
             case TERMINAR_PARTIDA:
                 vista.terminarPartida();
@@ -118,6 +114,9 @@ public class Controlador implements Observador {
                 vista.mostraTablero();
                 vista.actualizarEstadoJugador();
                 break;
+            case REINICIAR_BAZA:
+                vista.reiniciarBaza();
+
         }
 
     }
@@ -166,10 +165,6 @@ public class Controlador implements Observador {
 
     public void repartir3Jugador() {
         modeloTablero.repartir(idJugador,3);
-    }
-
-    public void cambiarTriunfo() {
-        modeloTablero.cambiaTriunfo(idJugador);
     }
 
     //se podria hacer de otra manera

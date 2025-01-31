@@ -23,7 +23,9 @@
         <children>
           <component id="7c803" class="javax.swing.JTextArea" binding="txtSalida">
             <constraints/>
-            <properties/>
+            <properties>
+              <font name="JetBrains Mono" size="16" style="1"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

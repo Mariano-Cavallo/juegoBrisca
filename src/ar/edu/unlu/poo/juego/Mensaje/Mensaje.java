@@ -10,6 +10,7 @@ public class Mensaje extends JDialog {
     private JLabel lblMensaje;
 
     public Mensaje(String mensaje) {
+        setVisible(true);
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);

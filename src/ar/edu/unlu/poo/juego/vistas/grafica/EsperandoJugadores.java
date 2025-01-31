@@ -21,20 +21,21 @@ public class EsperandoJugadores extends JFrame{
 
 
     public EsperandoJugadores(VistaGrafica padre,Controlador controlador){
+        setResizable(false);
         setTitle("Esperando jugadores");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setContentPane(panelPrincipal);
-        setSize(200, 180);
+        setSize(200, 280);
         this.padre = padre;
         this.controlador = padre.getControlador();
-
+        this.padre.estadoDeVentanaEsperaJugadore(true);
         modeloTabla = new DefaultTableModel();
         tablaJugadores.setModel(modeloTabla);
         modeloTabla.addColumn("ID");
         modeloTabla.addColumn("NOMBRE");
         mostrarJugadores(controlador.obtenerJugadores());
-        padre.estadoDeVentanaEsperaJugadore(true);
+
 
 
         empezarButton.addActionListener(new ActionListener() {

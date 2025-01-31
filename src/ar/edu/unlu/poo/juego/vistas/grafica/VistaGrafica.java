@@ -7,6 +7,7 @@ import ar.edu.unlu.poo.juego.vistas.Consola.EstadoVistaConsola;
 import ar.edu.unlu.poo.juego.vistas.IVista;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,11 +16,13 @@ public class VistaGrafica extends JFrame implements IVista {
     private JButton jugarButton;
     private JButton tablaDePuntuacionButton;
     private JButton salirButton;
+    private JButton comoJugar;
     private Controlador controlador;
     private EsperandoJugadores ventanaEspera;
     private boolean estadoVentanaAgregadoJugador = false;
     private EstadoVistaGrafica estado;
     private Tablero tablero;
+    private Ganador ganador;
 
 
 
@@ -27,19 +30,19 @@ public class VistaGrafica extends JFrame implements IVista {
 
     public VistaGrafica(Controlador controlador){
         //hacer el menu principal aparte o dejarlo asi
+        setResizable(false);
         setTitle("Brisca!!!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 440);
+        setSize(500, 440);
         setLocationRelativeTo(null);
         setContentPane(panelPrincipal);
         this.controlador = controlador;
+        panelPrincipal.setBackground(new Color(52, 73, 94));
+
         jugarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onJugar();
-                //probar
-                jugarButton.setEnabled(false);
-
             }
         });
         tablaDePuntuacionButton.addActionListener(new ActionListener() {
@@ -54,6 +57,17 @@ public class VistaGrafica extends JFrame implements IVista {
                 onSalir();
             }
         });
+        comoJugar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onComoJugar();
+            }
+        });
+    }
+
+    private void onComoJugar() {
+        var comoJugar = new ComoJugar();
+
     }
 
     private void onSalir() {
@@ -87,7 +101,11 @@ public class VistaGrafica extends JFrame implements IVista {
     }
 
     public void mostrarMensaje(String mensaje) {
-        tablero.println(mensaje);
+        if(tablero == null){
+            new Mensaje(mensaje);
+        }else{
+            tablero.println(mensaje);
+        }
     }
 
     @Override
@@ -97,6 +115,8 @@ public class VistaGrafica extends JFrame implements IVista {
 
     @Override
     public void cerrar() {
+        tablero.dispose();
+        ganador.dispose();
         setVisible(false);
     }
 
@@ -109,6 +129,7 @@ public class VistaGrafica extends JFrame implements IVista {
 
     @Override
     public void actualizarBaza(Carta ultimaCartaJugada) {
+        tablero.actualizarBaza(ultimaCartaJugada);
 
     }
 
@@ -130,16 +151,24 @@ public class VistaGrafica extends JFrame implements IVista {
 
     @Override
     public void actualizarvista() {
-
+        //y reiniciar baza
+        tablero.actualizarMano();
+        tablero.borrarBaza();
     }
 
     @Override
     public void terminarPartida() {
+        ganador = new Ganador(this,controlador);
+        ganador.setVisible(true);
+
 
     }
 
     @Override
     public void volverMenuPincipal() {
+        this.setVisible(true);
+        tablero.dispose();
+        ganador.dispose();
 
     }
 
@@ -148,14 +177,25 @@ public class VistaGrafica extends JFrame implements IVista {
         //o poner invicible
         ventanaEspera.dispose();
         tablero = new Tablero(controlador,this);
+        this.setVisible(false);
         tablero.setVisible(true);
+        tablero.iniciarCartaTriunfo();
         tablero.println("Que disfrunten el juego! ");
     }
 
+    @Override
+    public void reiniciarBaza() {
+        tablero.borrarBaza();
+    }
+
+    @Override
+    public void nuevaBaza() {
+    }
+
     public void comenzarPartida(){
-        //cambiar el >=
-        if(controlador.cantidadJugadores()>0) {
+        if(controlador.cantidadJugadores()>=2) {
             controlador.empezarPartida();
+
         }else{
             mostrarMensaje("Se necesitan por al menos 2 jugadores");
         }

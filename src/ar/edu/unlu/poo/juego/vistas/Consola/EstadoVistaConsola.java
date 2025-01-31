@@ -8,7 +8,6 @@ public enum EstadoVistaConsola {
     ESPERANDO_TURNO,
     JUGANDO_TURNO,
     INICIO_SIGUENTE_RONDA,
-    CAMBIANDO_CARTA_TRIUNFO,
     PARTIDA_TERMINADA,
 
 }

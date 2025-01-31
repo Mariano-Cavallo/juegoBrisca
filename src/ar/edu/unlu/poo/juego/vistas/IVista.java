@@ -29,4 +29,8 @@ public interface IVista {
     void volverMenuPincipal();
 
     void mostraTablero();
+
+    void reiniciarBaza();
+
+    void nuevaBaza();
 }
