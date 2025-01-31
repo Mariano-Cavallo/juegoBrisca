@@ -14,7 +14,6 @@ public class ComoJugar extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         txt.setEditable(false);
-
         txt.append("REGLAS DE LA BRISCA\n" +
                 "---------------------------\n"+
                 "Objetivo del Juego\n" +
@@ -73,7 +72,7 @@ public class ComoJugar extends JFrame {
                 "Fin del Juego\n" +
                 "----------------------\n"+
 
-                "El juego termina cuando no quedan cartas en el mazo" +
+                "El juego termina cuando no quedan cartas en el mazo\n" +
                 " y los jugadores han jugado todas las cartas de su mano.\n" +
                 "\n" +
                 "Se suman los puntos de las cartas obtenidas en las bazas ganadas.\n" +
@@ -100,6 +99,7 @@ public class ComoJugar extends JFrame {
                 "Siete, Seis, Cinco, Cuatro y Dos: 0 puntos.\n" +
                 "\n");
 
+        txt.setCaretPosition(0);
     }
 
 

@@ -3,7 +3,7 @@ package ar.edu.unlu.poo.juego.vistas.grafica;
 import ar.edu.unlu.poo.juego.Mensaje.Mensaje;
 import ar.edu.unlu.poo.juego.controladores.Controlador;
 import ar.edu.unlu.poo.juego.modelos.Carta;
-import ar.edu.unlu.poo.juego.vistas.Consola.EstadoVistaConsola;
+
 import ar.edu.unlu.poo.juego.vistas.IVista;
 
 import javax.swing.*;
@@ -138,11 +138,9 @@ public class VistaGrafica extends JFrame implements IVista {
     @Override
     public void actualizarEstadoJugador() {
         if(controlador.esMiTurno()){
-            estado = EstadoVistaGrafica.JUGANDO_TURNO;
             tablero.activarBotones();
             tablero.println("Es su turno");
         }else {
-            estado = EstadoVistaGrafica.ESPERANDO_TURNO;
             tablero.desactivarBotones();
             tablero.println("Esperando turno");
         }

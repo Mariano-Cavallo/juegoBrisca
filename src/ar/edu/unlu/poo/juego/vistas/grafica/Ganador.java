@@ -6,18 +6,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static java.awt.Font.BOLD;
+
 public class Ganador extends JFrame {
     private final VistaGrafica padre;
     private Controlador controlador;
 
-    public Ganador(VistaGrafica padre,Controlador controlador) {
+    public Ganador(VistaGrafica padre,Controlador Controlador) {
         this.padre = padre;
-        this.controlador = controlador;
+        this.controlador = Controlador;
 
         setResizable(false);
         // Configuración básica de la ventana
         setTitle("Fin de la partida");
-        setSize(500, 600);
+        setSize(430, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -32,6 +34,13 @@ public class Ganador extends JFrame {
         JButton boton1 = new JButton("Volver a jugar");
         JButton boton2 = new JButton("Ver puntuaciones");
         JButton boton3 = new JButton("Salir");
+        var fuente = new Font("jetbrains monospace", 1,20);
+        textArea.setFont(fuente);
+
+        textArea.append("-------------|PARTIDA TERMINADA| -------------\n" +
+        "Ganador/es de la partida : " + controlador.ganadorDePartida() +"\n" +
+        "Con una puntuacion de  : " + controlador.puntuacionGanadora());
+
 
         boton1.addActionListener(new ActionListener() {
             @Override
