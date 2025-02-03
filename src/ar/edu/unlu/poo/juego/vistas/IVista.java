@@ -33,4 +33,6 @@ public interface IVista {
     void reiniciarBaza();
 
     void nuevaBaza();
+
+    void bazaGanadora();
 }

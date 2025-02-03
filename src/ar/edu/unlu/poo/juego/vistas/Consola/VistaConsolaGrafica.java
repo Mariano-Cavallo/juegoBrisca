@@ -2,6 +2,7 @@ package ar.edu.unlu.poo.juego.vistas.Consola;
 
 
 import ar.edu.unlu.poo.juego.controladores.Controlador;
+import ar.edu.unlu.poo.juego.modelos.Baza;
 import ar.edu.unlu.poo.juego.modelos.Carta;
 import ar.edu.unlu.poo.juego.modelos.Jugador;
 import ar.edu.unlu.poo.juego.vistas.IVista;
@@ -9,6 +10,7 @@ import ar.edu.unlu.poo.juego.vistas.IVista;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.List;
 
 public class VistaConsolaGrafica extends JFrame implements IVista {
@@ -21,7 +23,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
     private String tituloLibro;
     private String autorLibro;
 
-    public VistaConsolaGrafica(Controlador controlador) {
+    public VistaConsolaGrafica(Controlador controlador)throws RemoteException {
         setTitle("Brisca Consola");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 700);
@@ -29,6 +31,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
         setContentPane(panelPrincipal);
         this.controlador = controlador;
         txtSalida.setEditable(false);
+
 
         btnEnter.addActionListener(new ActionListener() {
             @Override
@@ -38,6 +41,13 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
             }
         });
         mostrarMenuPrincipal();
+        txtEntrada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                procesarEntrada(txtEntrada.getText());
+                txtEntrada.setText("");
+            }
+        });
     }
 
     private void print(String string) {
@@ -86,7 +96,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
         }
     }
 
-    private void volverAJugar() {
+    private void volverAJugar(){
         controlador.reiniciarPartida();
     }
 
@@ -185,13 +195,12 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
         switch (entrada){
             //cambiar
             case "1":
-                if(controlador.cantidadJugadores()>0) {
+                if(controlador.cantidadJugadores()>1) {
                     controlador.empezarPartida();
                 }
                 else{println("Faltan Jugadores");}
                 break;
             case "2":
-                println("Gracias por jugar. ¡Hasta luego!");
                 System.exit(0);
 
         }
@@ -231,10 +240,14 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
     @Override
     public void nuevaBaza() {
         println("Baza actual : \n");
-
     }
 
-    private void mostrarBaza() {
+    @Override
+    public void bazaGanadora() {
+        println(controlador.bazaGanadora());
+    }
+
+    private void mostrarBaza(){
         if(controlador.cantidadCartasBaza()>0){
             for(int i=1;i <= controlador.cantidadCartasBaza();i++){
                 println(controlador.cartaBaza(i).toString());
@@ -276,6 +289,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
     public void actualizarvista() {
         mostraTablero();
 
+
     }
 
     public void actualizarAgregadoJugador() {
@@ -306,6 +320,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
 
     @Override
     public void cerrar() {
+        //o borrar
         setVisible(false);
     }
 

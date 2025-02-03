@@ -1,172 +1,189 @@
 package ar.edu.unlu.poo.juego.modelos;
 
-import observadores.Observado;
-import observadores.Observador;
+import ar.edu.unlu.rmimvc.observer.ObservableRemoto;
 
+
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tablero implements Observado {
+public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     private Baza baza;
     private Carta cartaDeTriunfo;
     private Mazo mazo;
     private ArrayList<Jugador> jugadores;
     private int turnoActual = 0;
     private int cartasJugadas = 0;
-    private int ultimoGanador;
-
-    private ArrayList<Observador> observadores = new ArrayList<>();
-
-
+    private int ultimoGanador = -1;
+    private int idSiguiente = -1;
+    private Baza bazaGanadoraAnterior;
 
 
-    public Tablero(){
+
+
+    public Tablero() throws RemoteException{
         this.mazo = new Mazo();
         this.baza = new Baza();
+        this.bazaGanadoraAnterior = new Baza();
         jugadores = new ArrayList<>();
     }
 
-    public void nuevoMazo(){
+    @Override
+    public void nuevoMazo() throws RemoteException{
         this.mazo = new Mazo();
     }
 
-    public int getCantidadBaza(){
+    @Override
+    public int getCantidadBaza()throws RemoteException{
         return baza.cantidad;
     }
-    public int getCantidadJugadores(){
+    @Override
+    public int getCantidadJugadores()throws RemoteException{
         return jugadores.size();
     }
 
-    public List<Jugador> getJugadores(){
+    @Override
+    public List<Jugador> getJugadores()throws RemoteException{
         return jugadores;
     }
 
-    public void agregarJugador(Jugador jugador){
+    @Override
+    public void agregarJugador(Jugador jugador) throws RemoteException {
         jugadores.add(jugador);
-        notificarObservador(Eventos.AGREGAR_JUGADOR);
+        notificarObservadores(Eventos.AGREGAR_JUGADOR);
     }
 
-    public int cantidadJugadores(){
+    @Override
+    public int cantidadJugadores()throws RemoteException{
         return jugadores.size();
     }
 
-    public void agregarCartaBaza(Carta carta){
+    @Override
+    public void agregarCartaBaza(Carta carta)throws RemoteException{
         baza.agregarCarta(carta);
     }
 
-    public void setCartaDeTriunfo(Carta carta){
+    @Override
+    public void setCartaDeTriunfo(Carta carta)throws RemoteException{
         cartaDeTriunfo = carta;
     }
 
-    public Carta getCartaDeTriunfo() {
+    @Override
+    public Carta getCartaDeTriunfo()throws RemoteException {
         return cartaDeTriunfo;
     }
 
-    public ConjuntoDeCartas darBaza(){
+    @Override
+    public ConjuntoDeCartas darBaza()throws RemoteException{
         return baza;
     }
 
-    public int getCantidadMazo(){
+    @Override
+    public int getCantidadMazo()throws RemoteException{
         return mazo.getCantidad();
     }
 
-    public Jugador getJugador(int i){
+    @Override
+    public Jugador getJugador(int i)throws RemoteException{
         return jugadores.get(i);
     }
 
-    public Carta robarCartaMazo(){
+    @Override
+    public Carta robarCartaMazo()throws RemoteException{
         return mazo.robar();
     }
 
-    public int siguienteTurno(){
+    @Override
+    public int siguienteTurno() throws RemoteException {
         turnoActual = (turnoActual + 1)% jugadores.size();
-        notificarObservador(Eventos.SIGUIENTE_TURNO);
+        notificarObservadores(Eventos.SIGUIENTE_TURNO);
         return turnoActual;
     }
 
-    public int getTurnoActual(){
+    @Override
+    public int getTurnoActual()throws RemoteException{
         return turnoActual;
     }
 
-    public void setTurnoActual(int turno){
+    @Override
+    public void setTurnoActual(int turno)throws RemoteException{
         this.turnoActual = turno;
     }
 
     // ver cuando no se pueda robar
-    public void repartir(int idJugador,int cantidad){
+    @Override
+    public void repartir(int idJugador, int cantidad)throws RemoteException{
         for(int i = 0;i < cantidad;i++) {
             getJugador(idJugador).agregarCarta(robarCartaMazo());
         }
     }
 
-    public void jugadorRoba(int idJugador){
+    @Override
+    public void jugadorRoba(int idJugador)throws RemoteException{
         getJugador(idJugador).agregarCarta(robarCartaMazo());
     }
 
-    public int ganadorDeRonda(){
-        ultimoGanador = baza.getDueño(baza.cartaGanadoraRonda(cartaDeTriunfo),getTurnoActual(),getCantidadJugadores());
+    @Override
+    public int ganadorDeRonda()throws RemoteException{
+        this.ultimoGanador = baza.getDueño(baza.cartaGanadoraRonda(cartaDeTriunfo),getTurnoActual(),getCantidadJugadores());
         return ultimoGanador;
     }
 
 
     @Override
-    public void agregarObservador(Observador observador) {
-        this.observadores.add(observador);
-    }
-
-    @Override
-    public void borrarObservador(Observador observador) {
-        this.observadores.remove(observador);
-    }
-
-    @Override
-    public void notificarObservador(Eventos evento) {
-        for (Observador observador : observadores) {
-            observador.notificar(evento);
-        }
-    }
-
-    public Carta getUltimaCartaJugada(){
+    public Carta getUltimaCartaJugada()throws RemoteException{
         return baza.getUltimaAgregada();
     }
 
-    public void jugadorJuegaCarta(int idJugador,int posCarta) {
+    @Override
+    public void jugadorJuegaCarta(int idJugador, int posCarta) throws RemoteException {
         cartasJugadas++;
         baza.agregarCarta(jugadores.get(idJugador).jugarCarta(posCarta));
-        notificarObservador(Eventos.CARTA_JUGADA);
+        notificarObservadores(Eventos.CARTA_JUGADA);
 
     }
 
-    public Carta getCartaBaza(int numeroDeCarta) {
+    @Override
+    public Carta getCartaBaza(int numeroDeCarta)throws RemoteException {
         return baza.getCarta(numeroDeCarta);
     }
 
-    public int getCartasJugadas() {
+    @Override
+    public int getCartasJugadas() throws RemoteException{
         return cartasJugadas;
     }
 
-    public void setCartasJugadas(int i) {
+    @Override
+    public void setCartasJugadas(int i) throws RemoteException{
         cartasJugadas = i;
     }
 
-    public void darBazaAlGanador() {
-
-        notificarObservador(Eventos.RONDA_TERMINADA);
+    @Override
+    public void darBazaAlGanador() throws RemoteException {
+        //dudoso
         getJugador(ganadorDeRonda()).agregarCartasGanadas(this.baza);
+        bazaGanadoraAnterior.agregarCartas(baza);
         this.baza.borrar();
+        notificarObservadores(Eventos.RONDA_TERMINADA);
     }
 
-    public int getUltimoGanador() {
+
+    @Override
+    public int getUltimoGanador() throws RemoteException{
         return ultimoGanador;
     }
 
-    public void darTurnoAlGanador() {
+    @Override
+    public void darTurnoAlGanador() throws RemoteException {
         setTurnoActual(ultimoGanador);
-        notificarObservador(Eventos.SIGUIENTE_TURNO);
+        notificarObservadores(Eventos.SIGUIENTE_TURNO);
     }
 
 
-    public int jugadorPuedeCambiarLaCartaDeTriunfo() {
+    @Override
+    public int jugadorPuedeCambiarLaCartaDeTriunfo() throws RemoteException{
         int idJugador = -1;
         for(Jugador jugador : jugadores){
             if(jugador.tieneEl7DelPalo(cartaDeTriunfo)){
@@ -179,23 +196,27 @@ public class Tablero implements Observado {
 
 
 
-    public boolean sePuedeRobarCarta() {
+    @Override
+    public boolean sePuedeRobarCarta() throws RemoteException{
         return cantidadJugadores() <= getCantidadMazo();
     }
 
     //se fija si el primer jugador tiene almenos una carta
-    public boolean jugadoresTienenCartas() {
+    @Override
+    public boolean jugadoresTienenCartas()throws RemoteException {
         return getJugador(0).cantidadCartas() > 0;
     }
 
-    public void contarTodosLosPuntos(){
+    @Override
+    public void contarTodosLosPuntos() throws RemoteException {
         for(Jugador j : jugadores){
             j.contarPuntuacion();
         }
-        notificarObservador(Eventos.TERMINAR_PARTIDA);
+        notificarObservadores(Eventos.TERMINAR_PARTIDA);
     }
 
-    public int ganadorHasta3Jugadores(){
+    @Override
+    public int ganadorHasta3Jugadores()throws RemoteException{
         int ganador = 0;
         int puntuacionGanadora = 0 ;
         int flag = 0 ;
@@ -213,7 +234,8 @@ public class Tablero implements Observado {
         return ganador;
     }
 
-    public int ganador4Jugadores(){
+    @Override
+    public int ganador4Jugadores()throws RemoteException{
         int puntosEquipo1;
         int puntosEquipo2;
         puntosEquipo1 = getJugador(0).getPuntuacion() + getJugador(2).getPuntuacion();
@@ -229,17 +251,44 @@ public class Tablero implements Observado {
     }
 
 
-    public void empezarPartida() {
-        notificarObservador(Eventos.COMENZAR_PARTIDA);
+    @Override
+    public void empezarPartida() throws RemoteException {
+        notificarObservadores(Eventos.COMENZAR_PARTIDA);
     }
 
-    public void borrarJugador(int idJugador) {
+    @Override
+    public void borrarJugador(int idJugador) throws RemoteException{
         jugadores.remove(idJugador);
     }
 
-    public void borrarJugadores() {
-        jugadores.get(0).reiniciarContadorId();
+    @Override
+    public void borrarJugadores() throws RemoteException {
         jugadores.clear();
-        notificarObservador(Eventos.REINICIO_PARTIDA);
+        idSiguiente = -1;
+        //podia mejorar al no cambiar a todos al menu principal
+        notificarObservadores(Eventos.REINICIO_PARTIDA);
+    }
+
+    @Override
+    public int siguienteIdJugador() throws RemoteException {
+        return ++idSiguiente;
+    }
+
+    @Override
+    public String bazaGanadora() {
+        String Cartas = "";
+        for(int i = 1; i<=bazaGanadoraAnterior.getCantidad();i++){
+            Cartas += (bazaGanadoraAnterior.getCarta(i).toString())+"\n";
+        }
+        return Cartas;
+    }
+
+    @Override
+    public void borrarBazaAnt() {
+        try {
+            bazaGanadoraAnterior.borrar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

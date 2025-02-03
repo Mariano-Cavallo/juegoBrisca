@@ -1,10 +1,11 @@
 package ar.edu.unlu.poo.juego.vistas.grafica.utilidades;
 
 import javax.swing.*;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapeoCartas {
+public class MapeoCartas  implements Serializable {
     private Map<String,String> mapaImagenes;
 
 

@@ -1,6 +1,8 @@
 package ar.edu.unlu.poo.juego.modelos;
 
-public class Carta {
+import java.io.Serializable;
+
+public class Carta implements Serializable {
     private Palo palo;
     private int valor;
     private int puntos;
@@ -41,6 +43,6 @@ public class Carta {
 
 
     public String getNombre() {
-        return valor + " " +getPalo();
+        return valor + " " + getPalo();
     }
 }

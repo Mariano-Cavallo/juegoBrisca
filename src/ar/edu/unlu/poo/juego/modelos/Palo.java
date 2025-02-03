@@ -1,6 +1,8 @@
 package ar.edu.unlu.poo.juego.modelos;
 
-public enum Palo {
+import java.io.Serializable;
+
+public enum Palo implements Serializable {
     ORO,
     BASTO,
     ESPADA,

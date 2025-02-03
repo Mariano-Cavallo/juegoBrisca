@@ -70,7 +70,10 @@ public class VistaGrafica extends JFrame implements IVista {
 
     }
 
+    //cerrar juego capaz
     private void onSalir() {
+        //probar
+        System.exit(0);
         dispose();
     }
 
@@ -117,7 +120,7 @@ public class VistaGrafica extends JFrame implements IVista {
     public void cerrar() {
         tablero.dispose();
         ganador.dispose();
-        setVisible(false);
+        System.exit(0);
     }
 
     @Override
@@ -164,16 +167,17 @@ public class VistaGrafica extends JFrame implements IVista {
 
     @Override
     public void volverMenuPincipal() {
+        ventanaEspera.setVisible(false);
+        ganador.setVisible(false);
+        tablero.setVisible(false);
         this.setVisible(true);
-        tablero.dispose();
-        ganador.dispose();
 
     }
 
     @Override
     public void mostraTablero() {
         //o poner invicible
-        ventanaEspera.dispose();
+        ventanaEspera.setVisible(false);
         tablero = new Tablero(controlador,this);
         this.setVisible(false);
         tablero.setVisible(true);
@@ -190,10 +194,16 @@ public class VistaGrafica extends JFrame implements IVista {
     public void nuevaBaza() {
     }
 
-    public void comenzarPartida(){
-        if(controlador.cantidadJugadores()>=2) {
-            controlador.empezarPartida();
+    @Override
+    public void bazaGanadora() {
 
+    }
+
+    public void comenzarPartida(){
+        if(controlador.cantidadJugadores()>1) {
+            //sel set este ac o cuando pongo el mazo en el tablero
+            controlador.setCartaTriunfo();
+            controlador.empezarPartida();
         }else{
             mostrarMensaje("Se necesitan por al menos 2 jugadores");
         }

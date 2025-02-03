@@ -1,8 +1,9 @@
 package ar.edu.unlu.poo.juego.modelos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ConjuntoDeCartas {
+public class ConjuntoDeCartas implements Serializable {
     protected ArrayList<Carta> cartas;
     protected int cantidad;
 

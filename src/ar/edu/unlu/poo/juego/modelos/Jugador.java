@@ -1,21 +1,16 @@
 package ar.edu.unlu.poo.juego.modelos;
 
-public class Jugador {
-    private static int  contadorId = -1;
-    private int id;
+import java.io.Serializable;
+
+public class Jugador implements Serializable {
+    private int id = -1;
     private String nombre;
     private ConjuntoDeCartas mano;
     private int puntuacion;
     private ConjuntoDeCartas cartasGanadas;
 
 
-    public void reiniciarContadorId(){
-        contadorId = -1;
-    }
-
     public Jugador(String nombre){
-        contadorId ++;
-        this.id = contadorId;
         this.nombre = nombre;
         this.mano = new ConjuntoDeCartas();
         this.puntuacion = 0;
@@ -52,6 +47,9 @@ public class Jugador {
         return this.nombre;
     }
 
+    public void setId(int id){
+        this.id = id;
+    }
     public int getId() {
         return id;
     }

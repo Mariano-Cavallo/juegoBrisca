@@ -1,6 +1,8 @@
 package ar.edu.unlu.poo.juego.modelos;
 
-public enum Eventos {
+import java.io.Serializable;
+
+public enum Eventos implements Serializable {
     REINICIAR_BAZA,
     COMENZAR_PARTIDA,
     CARTA_ROBADA,

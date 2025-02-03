@@ -1,9 +1,10 @@
 package ar.edu.unlu.poo.juego.modelos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Mazo extends ConjuntoDeCartas{
+public class Mazo extends ConjuntoDeCartas implements Serializable {
 
     //hacer
     private boolean puedeRobar;

@@ -33,5 +33,14 @@ public class CrearJugador extends JFrame{
                 dispose();
             }
         });
+        txtNombre.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                padre.agregarJugador(txtNombre.getText());
+                padre.agregarVentanaDeEspera();
+                dispose();
+
+            }
+        });
     }
 }

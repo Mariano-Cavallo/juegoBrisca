@@ -1,6 +1,8 @@
 package ar.edu.unlu.poo.juego.modelos;
 
-public class Baza extends ConjuntoDeCartas{
+import java.io.Serializable;
+
+public class Baza extends ConjuntoDeCartas implements Serializable {
 
 
     public Baza(){

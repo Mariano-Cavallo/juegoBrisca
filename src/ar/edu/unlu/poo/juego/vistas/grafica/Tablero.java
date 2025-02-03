@@ -64,8 +64,6 @@ public class Tablero extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 controlador.jugarCarta(2);
                 controlador.siguienteTurno();
-
-
             }
         });
         botonCarta3.addActionListener(new ActionListener() {

@@ -58,7 +58,6 @@ public class Ganador extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.cerrarJugador();
-
             }
         });
         // Crear un panel para los botones
