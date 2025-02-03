@@ -36,6 +36,7 @@ Si se juega una carta del palo de triunfo, gana la carta más alta de ese palo.
 
 Si no se juega ningun palo de triunfo el jugador que juega la carta más alta del palo de salida
 (el palo de la primera carta jugada en la baza) gana la baza.
+
 ------------------------
 Recoger Cartas
 ------------------------
@@ -47,6 +48,7 @@ Luego, se reponen las cartas jugadas con nuevas cartas del mazo (si quedan carta
 ----------------------
 Fin del Juego
 ----------------------
+
 El juego termina cuando no quedan cartas en el mazo
  y los jugadores han jugado todas las cartas de su mano.
 
