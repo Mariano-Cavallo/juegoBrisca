@@ -39,10 +39,7 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     public int getCantidadBaza()throws RemoteException{
         return baza.cantidad;
     }
-    @Override
-    public int getCantidadJugadores()throws RemoteException{
-        return jugadores.size();
-    }
+
 
     @Override
     public List<Jugador> getJugadores()throws RemoteException{
@@ -60,10 +57,6 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
         return jugadores.size();
     }
 
-    @Override
-    public void agregarCartaBaza(Carta carta)throws RemoteException{
-        baza.agregarCarta(carta);
-    }
 
     @Override
     public void setCartaDeTriunfo(Carta carta)throws RemoteException{
@@ -75,10 +68,6 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
         return cartaDeTriunfo;
     }
 
-    @Override
-    public ConjuntoDeCartas darBaza()throws RemoteException{
-        return baza;
-    }
 
     @Override
     public int getCantidadMazo()throws RemoteException{
@@ -120,14 +109,10 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
         }
     }
 
-    @Override
-    public void jugadorRoba(int idJugador)throws RemoteException{
-        getJugador(idJugador).agregarCarta(robarCartaMazo());
-    }
 
     @Override
     public int ganadorDeRonda()throws RemoteException{
-        this.ultimoGanador = baza.getDueño(baza.cartaGanadoraRonda(cartaDeTriunfo),getTurnoActual(),getCantidadJugadores());
+        this.ultimoGanador = baza.getDueño(baza.cartaGanadoraRonda(cartaDeTriunfo),getTurnoActual(),cantidadJugadores());
         return ultimoGanador;
     }
 
@@ -180,21 +165,6 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
         setTurnoActual(ultimoGanador);
         notificarObservadores(Eventos.SIGUIENTE_TURNO);
     }
-
-
-    @Override
-    public int jugadorPuedeCambiarLaCartaDeTriunfo() throws RemoteException{
-        int idJugador = -1;
-        for(Jugador jugador : jugadores){
-            if(jugador.tieneEl7DelPalo(cartaDeTriunfo)){
-                idJugador = jugador.getId();
-                break;
-            }
-        }
-        return idJugador;
-    }
-
-
 
     @Override
     public boolean sePuedeRobarCarta() throws RemoteException{

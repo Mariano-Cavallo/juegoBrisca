@@ -8,13 +8,13 @@ public class ConjuntoDeCartas implements Serializable {
     protected int cantidad;
 
 
-    public Carta getUltimaAgregada(){
-        return cartas.getLast();
-
-    }
     public ConjuntoDeCartas(){
         this.cartas = new ArrayList<>();
         this.cantidad = 0;
+    }
+    public Carta getUltimaAgregada(){
+        return cartas.getLast();
+
     }
 
     public Carta agregarCarta(Carta carta){
@@ -27,20 +27,9 @@ public class ConjuntoDeCartas implements Serializable {
         cantidad--;
         return cartas.remove(posDeCarta-1);
     }
-    public Carta sacar(Carta carta){
-        cartas.remove(carta);
-        cantidad--;
-        return carta;
-    }
+
     public Carta getCarta(int posDeCarta){
         return cartas.get(posDeCarta-1);
-    }
-
-    public ArrayList<Carta> devolverCartas(){
-        ArrayList<Carta> cartasDevueltas = new ArrayList<>(cartas);
-        cartas.clear();
-        cantidad = 0;
-        return cartasDevueltas;
     }
 
     public void agregarCartas(ConjuntoDeCartas conjuntoDeCartas){

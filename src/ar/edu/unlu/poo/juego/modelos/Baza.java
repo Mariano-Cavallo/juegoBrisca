@@ -21,9 +21,9 @@ public class Baza extends ConjuntoDeCartas implements Serializable {
         return hay;
     }
 
-    public Carta cartaGanadoraRonda(Carta Triunfo){
+    public Carta cartaGanadoraRonda(Carta triunfo){
         ConjuntoDeCartas posiblesGanadoras = new ConjuntoDeCartas();
-        Palo palo = Triunfo.getPalo();
+        Palo palo = triunfo.getPalo();
         if(hayPalo(palo)){
             for(Carta c: cartas){
                 if (c.mismoPalo(palo)){

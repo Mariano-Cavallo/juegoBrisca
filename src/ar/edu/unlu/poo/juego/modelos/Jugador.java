@@ -58,16 +58,6 @@ public class Jugador implements Serializable {
         return mano.cantidad;
     }
 
-    public boolean tieneEl7DelPalo(Carta carta){
-        for(Carta c : mano.cartas){
-            if(c.mismoPalo(carta.getPalo()) && c.getValor() == 7){
-                return true;
-            }
-        }
-        return false;
-    }
-
-
     @Override
     public String toString() {
         return "Jugador{" +
@@ -75,17 +65,4 @@ public class Jugador implements Serializable {
                 "id=" + id;
     }
 
-    public Carta get7Triunfo(Carta carta) {
-        for(Carta c : mano.cartas){
-            if(c.mismoPalo(carta.getPalo()) && c.getValor() == 7){
-                return mano.sacar(c);
-            }
-        }
-        return null;
-    }
-
-    public void reiniciarPuntuacion() {
-        this.puntuacion = 0;
-        this.cartasGanadas.borrar();
-    }
 }

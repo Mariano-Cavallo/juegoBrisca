@@ -10,21 +10,15 @@ public interface ITablero extends IObservableRemoto {
 
     int getCantidadBaza()throws RemoteException;
 
-    int getCantidadJugadores()throws RemoteException;
-
     List<Jugador> getJugadores()throws RemoteException;
 
     void agregarJugador(Jugador jugador) throws RemoteException;
 
     int cantidadJugadores()throws RemoteException;
 
-    void agregarCartaBaza(Carta carta)throws RemoteException;
-
     void setCartaDeTriunfo(Carta carta)throws RemoteException;
 
     Carta getCartaDeTriunfo()throws RemoteException;
-
-    ConjuntoDeCartas darBaza()throws RemoteException;
 
     int getCantidadMazo()throws RemoteException;
 
@@ -41,8 +35,6 @@ public interface ITablero extends IObservableRemoto {
     // ver cuando no se pueda robar
     void repartir(int idJugador, int cantidad)throws RemoteException;
 
-    void jugadorRoba(int idJugador)throws RemoteException;
-
     int ganadorDeRonda()throws RemoteException;
 
     Carta getUltimaCartaJugada()throws RemoteException;
@@ -55,14 +47,11 @@ public interface ITablero extends IObservableRemoto {
 
     void setCartasJugadas(int i)throws RemoteException;
 
-
     void darBazaAlGanador() throws RemoteException;
 
     int getUltimoGanador()throws RemoteException;
 
     void darTurnoAlGanador() throws RemoteException;
-
-    int jugadorPuedeCambiarLaCartaDeTriunfo()throws RemoteException;
 
     boolean sePuedeRobarCarta()throws RemoteException;
 

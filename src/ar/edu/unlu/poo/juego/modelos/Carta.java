@@ -19,9 +19,7 @@ public class Carta implements Serializable {
         return puntos;
     }
 
-    public int getValor() {
-        return valor;
-    }
+
 
     public Palo getPalo() {
         return palo;
@@ -29,10 +27,7 @@ public class Carta implements Serializable {
     public boolean mismoPalo(Palo p){
         return this.palo == p;
     }
-    public boolean tieneMayorValorPuntaje(Carta c){
-        return c.getPuntos() > this.getPuntos();
 
-    }
 
     @Override
     public String toString() {
