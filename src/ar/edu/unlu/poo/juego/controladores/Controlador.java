@@ -18,11 +18,6 @@ public class Controlador implements IControladorRemoto {
     private int idJugador;
 
 
-    public Controlador(){
-
-    }
-
-
     public int getJugador()throws RemoteException{
         return idJugador;
     }

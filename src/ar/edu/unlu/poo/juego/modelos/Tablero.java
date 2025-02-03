@@ -259,6 +259,7 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     @Override
     public void borrarJugador(int idJugador) throws RemoteException{
         jugadores.remove(idJugador);
+        idSiguiente--;
     }
 
     @Override
