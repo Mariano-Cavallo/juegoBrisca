@@ -75,4 +75,8 @@ public interface ITablero extends IObservableRemoto {
     String bazaGanadora()throws RemoteException;
 
     void borrarBazaAnt()throws RemoteException;
+
+    Object[][] getTablaJugadores()throws RemoteException;
+
+    Object[][] getTablaRanking()throws RemoteException;
 }

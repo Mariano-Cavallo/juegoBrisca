@@ -35,4 +35,6 @@ public interface IVista {
     void nuevaBaza();
 
     void bazaGanadora();
+
+    void verPuntuaciones();
 }

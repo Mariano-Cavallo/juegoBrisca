@@ -185,6 +185,15 @@
           <text value="Mano"/>
         </properties>
       </component>
+      <component id="3d2ad" class="javax.swing.JLabel" binding="nombre">
+        <constraints>
+          <grid row="4" column="10" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

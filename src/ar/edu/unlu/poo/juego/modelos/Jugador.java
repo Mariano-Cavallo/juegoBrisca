@@ -1,5 +1,7 @@
 package ar.edu.unlu.poo.juego.modelos;
 
+import serializador.AddableObjectOutputStream;
+
 import java.io.Serializable;
 
 public class Jugador implements Serializable {
@@ -60,9 +62,14 @@ public class Jugador implements Serializable {
 
     @Override
     public String toString() {
-        return "Jugador{" +
-                "nombre='" + nombre + '\'' +
-                "id=" + id;
+        return "Jugador:" + nombre  +
+                " puntuacion: " + puntuacion;
     }
 
+    public void agregarPuntos(int puntos) {
+        this.puntuacion += puntos;
+    }
+    public void setPuntuacion(int puntos) {
+        this.puntuacion = puntos;
+    }
 }

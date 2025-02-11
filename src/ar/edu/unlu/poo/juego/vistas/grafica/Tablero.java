@@ -23,6 +23,7 @@ public class Tablero extends JFrame {
     private JLabel baza3;
     private JLabel baza4;
     private JLabel gif;
+    private JLabel nombre;
     private Controlador controlador;
     private final VistaGrafica padre;
     private MapeoCartas mapeo;
@@ -51,6 +52,7 @@ public class Tablero extends JFrame {
         actualizarMano();
         txtTablero.setEditable(false);
 
+
         botonCarta1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,8 +78,12 @@ public class Tablero extends JFrame {
         });
     }
 
+    public void iniciarNombre(String jugador){
+        nombre.setText("Jugador: "+jugador);
+    }
 
-    public void iniciarCartaTriunfo(){
+
+    public void iniciarIconos(){
 
         //mazo y carta del triunfo
         ImageIcon carta = new ImageIcon("src/ImagenesCartas/reverso.png");

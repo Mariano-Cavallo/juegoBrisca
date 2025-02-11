@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 public class VistaGrafica extends JFrame implements IVista {
     private JPanel panelPrincipal;
@@ -23,6 +24,7 @@ public class VistaGrafica extends JFrame implements IVista {
     private EstadoVistaGrafica estado;
     private Tablero tablero;
     private Ganador ganador;
+    private Puntuaciones puntuaciones;
 
 
 
@@ -38,6 +40,7 @@ public class VistaGrafica extends JFrame implements IVista {
         setContentPane(panelPrincipal);
         this.controlador = controlador;
         panelPrincipal.setBackground(new Color(52, 73, 94));
+
 
         jugarButton.addActionListener(new ActionListener() {
             @Override
@@ -78,7 +81,8 @@ public class VistaGrafica extends JFrame implements IVista {
     }
 
     private void onPuntuacion() {
-        mostrarMensaje("Apretaste Puntuacion ");
+        mostrarTablaPuntuaciones();
+
 
     }
 
@@ -181,7 +185,8 @@ public class VistaGrafica extends JFrame implements IVista {
         tablero = new Tablero(controlador,this);
         this.setVisible(false);
         tablero.setVisible(true);
-        tablero.iniciarCartaTriunfo();
+        tablero.iniciarNombre(controlador.getNombre());
+        tablero.iniciarIconos();
         tablero.println("Que disfrunten el juego! ");
     }
 
@@ -197,6 +202,12 @@ public class VistaGrafica extends JFrame implements IVista {
     @Override
     public void bazaGanadora() {
 
+    }
+
+    @Override
+    public void verPuntuaciones() {
+        var ventanaPuntuacion = new Puntuaciones(this,controlador);
+        ventanaPuntuacion.setVisible(true);
     }
 
     public void comenzarPartida(){
@@ -217,6 +228,16 @@ public class VistaGrafica extends JFrame implements IVista {
 
     public Controlador getControlador(){
         return this.controlador;
+    }
+
+    public void mostrarTablaPuntuaciones() {
+        try {
+            puntuaciones = new Puntuaciones(this,controlador);
+            puntuaciones.cargarDatos(this.controlador.getTablaRanking());
+            puntuaciones.setVisible(true);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
 }

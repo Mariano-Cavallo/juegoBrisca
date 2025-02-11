@@ -18,6 +18,7 @@ public class Controlador implements IControladorRemoto {
     private int idJugador;
 
 
+
     public int getJugador()throws RemoteException{
         return idJugador;
     }
@@ -177,6 +178,7 @@ public class Controlador implements IControladorRemoto {
     private void terminarPartida() throws RemoteException{
         try {
             modeloTablero.contarTodosLosPuntos();
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -220,8 +222,11 @@ public class Controlador implements IControladorRemoto {
         try {
             if(cantidadJugadores()<4){
                 return modeloTablero.getJugador(modeloTablero.ganadorHasta3Jugadores()).getPuntuacion();
+            }else{
+
+                return modeloTablero.getJugador(modeloTablero.ganador4Jugadores()).getPuntuacion();
             }
-            return 0;
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -256,13 +261,9 @@ public class Controlador implements IControladorRemoto {
     //dudoso
     public void cerrarJugador(){
         try {
-            if(cantidadJugadores()>2){
                 modeloTablero.borrarJugador(idJugador);
                 vista.cerrar();
-
-            }else{
                 System.exit(0);
-            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -320,13 +321,45 @@ public class Controlador implements IControladorRemoto {
     }
 
 
+
     public String bazaGanadora() {
         try {
             return modeloTablero.bazaGanadora();
         } catch (RemoteException e) {
             e.printStackTrace();
+            return "";
         }
-        return "";
     }
+
+    public String getNombre() {
+        try {
+            return modeloTablero.getJugador(idJugador).getNombre();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public Object[][] getTablaJugadores()throws RemoteException{
+        try {
+            return this.modeloTablero.getTablaJugadores();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public Object[][] getTablaRanking()throws RemoteException {
+        try {
+            return this.modeloTablero.getTablaRanking();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
 
 }

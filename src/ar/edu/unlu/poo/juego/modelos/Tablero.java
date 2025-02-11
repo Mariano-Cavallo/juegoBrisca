@@ -1,7 +1,7 @@
 package ar.edu.unlu.poo.juego.modelos;
 
 import ar.edu.unlu.rmimvc.observer.ObservableRemoto;
-
+import serializador.AdministradorPuntuacion;
 
 
 import java.io.Serializable;
@@ -19,6 +19,8 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     private int ultimoGanador = -1;
     private int idSiguiente = -1;
     private Baza bazaGanadoraAnterior;
+    private AdministradorPuntuacion admin = new AdministradorPuntuacion();
+    private ArrayList<Jugador> ranking;
 
 
 
@@ -28,6 +30,7 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
         this.baza = new Baza();
         this.bazaGanadoraAnterior = new Baza();
         jugadores = new ArrayList<>();
+        this.ranking = this.admin.cargarRanking();
     }
 
     @Override
@@ -75,8 +78,8 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     }
 
     @Override
-    public Jugador getJugador(int i)throws RemoteException{
-        return jugadores.get(i);
+    public Jugador getJugador(int i){
+            return jugadores.get(i);
     }
 
     @Override
@@ -181,9 +184,18 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     public void contarTodosLosPuntos() throws RemoteException {
         for(Jugador j : jugadores){
             j.contarPuntuacion();
+            this.ranking.add(j);
         }
+        if(jugadores.size()>3){
+            getJugador(0).agregarPuntos(getJugador(2).getPuntuacion());
+            getJugador(1).agregarPuntos(getJugador(3).getPuntuacion());
+            getJugador(2).setPuntuacion(getJugador(0).getPuntuacion());
+            getJugador(3).setPuntuacion(getJugador(1).getPuntuacion());
+        }
+        this.admin.guardarRanking(ranking);
         notificarObservadores(Eventos.TERMINAR_PARTIDA);
     }
+
 
     @Override
     public int ganadorHasta3Jugadores()throws RemoteException{
@@ -236,6 +248,7 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     public void borrarJugadores() throws RemoteException {
         jugadores.clear();
         idSiguiente = -1;
+        this.admin.guardarRanking(ranking);
         //podia mejorar al no cambiar a todos al menu principal
         notificarObservadores(Eventos.REINICIO_PARTIDA);
     }
@@ -262,4 +275,30 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
             e.printStackTrace();
         }
     }
+
+    public Object[][] getTablaRanking()throws RemoteException {
+        Object[][] datos = new Object[this.ranking.size()][2];
+        int i = 0;
+        for (Jugador j : this.ranking) {
+            datos[i][0] = j.getNombre();
+            datos[i][1] = j.getPuntuacion();
+            i++;
+        }
+        return datos;
+    }
+    public Object[][] getTablaJugadores()throws RemoteException {
+        Object[][] datos = new Object[this.jugadores.size()][3];
+        int i = 0;
+        for (Jugador j : this.jugadores) {
+            datos[i][0] = j.getId();
+            datos[i][1] = j.getNombre();
+            datos[i][2] = j.getPuntuacion();
+            i++;
+        }
+        System.out.print(datos);
+        return datos;
+    }
+
+
+
 }

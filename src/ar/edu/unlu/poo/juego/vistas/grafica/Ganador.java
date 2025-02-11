@@ -52,6 +52,7 @@ public class Ganador extends JFrame {
         boton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                padre.mostrarTablaPuntuaciones();
             }
         });
         boton3.addActionListener(new ActionListener() {

@@ -22,6 +22,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
     private EstadoVistaConsola estado;
     private String tituloLibro;
     private String autorLibro;
+    private EstadoVistaConsola estadoAnt;
 
     public VistaConsolaGrafica(Controlador controlador)throws RemoteException {
         setTitle("Brisca Consola");
@@ -75,10 +76,45 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
             case ESPERANDO_TURNO:
                 procesarEsperandoTurno(entrada);
                 break;
+            case TABLA_DE_PUNTUACION:
+                procesarTablaDePuntuacion(entrada);
+                break;
             case PARTIDA_TERMINADA:
                 procesarPartidaTerminada(entrada);
                 break;
 
+        }
+
+    }
+
+
+    private void tablaDePuntuacion(){
+        estadoAnt = estado;
+        estado = EstadoVistaConsola.TABLA_DE_PUNTUACION;
+        try{
+            StringBuilder sb = new StringBuilder();
+            Object[][] tabla = this.controlador.getTablaRanking();
+            sb.append(String.format("%-5s %-5s%n", "Nombre", "Puntaje"));
+            sb.append("------------------------------------\n");
+            for (Object[] fila : tabla){
+                sb.append(String.format("%-5s ----- %-5s%n\n", fila[0], fila[1]));
+            }
+            println(sb.toString());
+            println("1. Volver");
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void procesarTablaDePuntuacion(String entrada) {
+        switch (entrada){
+            case "1":
+                if(estadoAnt == EstadoVistaConsola.PARTIDA_TERMINADA){
+                    terminarPartida();
+                }else{
+                    mostrarMenuPrincipal();
+                }
         }
 
     }
@@ -89,6 +125,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
                 volverAJugar();
                 break;
             case "2":
+                tablaDePuntuacion();
                 break;
             case "3":
                 controlador.cerrarJugador();
@@ -108,8 +145,8 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
         println("Con una puntuacion de  : " + controlador.puntuacionGanadora()) ;
 
 
-        println("1. volver a jugar");
-        println("2. Guardar Puntuacion");
+        println("1. Volver a jugar");
+        println("2. Ver Puntuacion");
         println("3. Salir");
     }
 
@@ -147,6 +184,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
 
     private void procesarAgregandoJugador(String entrada) {
         controlador.crearJugadorEnTablero(entrada);
+        this.setTitle(controlador.getNombre());
         println("Jugador agregado");
         mostrarEsperandoJugadores();
         controlador.repartir3Jugador();
@@ -158,6 +196,8 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
             case "1":
                 mostrarAgragandoJugador();
                 controlador.setCartaTriunfo();
+                break;
+            case "2":tablaDePuntuacion();
                 break;
             case "3":
                 println("Gracias por jugar. ¡Hasta luego!");
@@ -195,10 +235,12 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
         switch (entrada){
             //cambiar
             case "1":
-                if(controlador.cantidadJugadores()>1) {
+                if(controlador.cantidadJugadores()<2 || controlador.cantidadJugadores()>4) {
+                    println("Faltan Jugadores");
+                }
+                else{
                     controlador.empezarPartida();
                 }
-                else{println("Faltan Jugadores");}
                 break;
             case "2":
                 System.exit(0);
@@ -247,6 +289,11 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
         println(controlador.bazaGanadora());
     }
 
+    @Override
+    public void verPuntuaciones() {
+
+    }
+
     private void mostrarBaza(){
         if(controlador.cantidadCartasBaza()>0){
             for(int i=1;i <= controlador.cantidadCartasBaza();i++){
@@ -288,8 +335,6 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
 
     public void actualizarvista() {
         mostraTablero();
-
-
     }
 
     public void actualizarAgregadoJugador() {
@@ -320,7 +365,6 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
 
     @Override
     public void cerrar() {
-        //o borrar
         setVisible(false);
     }
 
