@@ -6,8 +6,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 
-
-
 public class AdministradorPuntuacion {
 
     private final String archivo = "Datos.dat";
@@ -27,9 +25,9 @@ public class AdministradorPuntuacion {
         ArrayList<Jugador> jugadores = null;
         try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(this.archivo))) {
             jugadores = (ArrayList<Jugador>) entrada.readObject();
-            System.out.println("Jugadores cargados exitosamente");
+            System.out.println("Jugadores cargados ");
         } catch (FileNotFoundException e) {
-            System.err.println("El archivo no existe, se devolvera una lista vacia");
+            System.err.println("lista vacia");
             jugadores = new ArrayList<Jugador>();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

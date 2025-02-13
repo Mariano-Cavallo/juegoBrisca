@@ -36,7 +36,7 @@ public class Puntuaciones extends JFrame{
         tablaRanking.setEnabled(false);
         JScrollPane scrollPane = new JScrollPane(tablaRanking);
 
-        JButton boton3 = new JButton("Salir");
+        JButton boton3 = new JButton("Volver");
 
         boton3.addActionListener(new ActionListener() {
             @Override
@@ -50,7 +50,6 @@ public class Puntuaciones extends JFrame{
 
 
         boton3.setPreferredSize(buttonSize);
-
 
         // Configurar el layout de la ventana
         setLayout(new BorderLayout());

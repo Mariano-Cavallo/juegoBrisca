@@ -26,7 +26,7 @@ public class EsperandoJugadores extends JFrame{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setContentPane(panelPrincipal);
-        setSize(200, 280);
+        setSize(260, 280);
         this.padre = padre;
         this.controlador = padre.getControlador();
         this.padre.estadoDeVentanaEsperaJugadore(true);

@@ -190,4 +190,7 @@ public class Tablero extends JFrame {
     public void borrarBaza() {
         siguienteLabel = 0;
     }
+
+
+
 }

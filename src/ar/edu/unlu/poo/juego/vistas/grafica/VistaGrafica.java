@@ -73,11 +73,9 @@ public class VistaGrafica extends JFrame implements IVista {
 
     }
 
-    //cerrar juego capaz
+    //cerrar juego no se porque no funciona con system.exit(0);
     private void onSalir() {
-        //probar
         System.exit(0);
-        dispose();
     }
 
     private void onPuntuacion() {
@@ -216,7 +214,7 @@ public class VistaGrafica extends JFrame implements IVista {
             controlador.setCartaTriunfo();
             controlador.empezarPartida();
         }else{
-            mostrarMensaje("Se necesitan por al menos 2 jugadores");
+            mostrarMensaje("Se necesitan al menos 2 jugadores");
         }
     }
 

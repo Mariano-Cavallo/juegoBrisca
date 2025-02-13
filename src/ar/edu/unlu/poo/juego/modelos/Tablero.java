@@ -16,7 +16,7 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     private ArrayList<Jugador> jugadores;
     private int turnoActual = 0;
     private int cartasJugadas = 0;
-    private int ultimoGanador = -1;
+    private int ultimoGanador;
     private int idSiguiente = -1;
     private Baza bazaGanadoraAnterior;
     private AdministradorPuntuacion admin = new AdministradorPuntuacion();
@@ -113,12 +113,6 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     }
 
 
-    @Override
-    public int ganadorDeRonda()throws RemoteException{
-        this.ultimoGanador = baza.getDueño(baza.cartaGanadoraRonda(cartaDeTriunfo),getTurnoActual(),cantidadJugadores());
-        return ultimoGanador;
-    }
-
 
     @Override
     public Carta getUltimaCartaJugada()throws RemoteException{
@@ -146,6 +140,12 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     @Override
     public void setCartasJugadas(int i) throws RemoteException{
         cartasJugadas = i;
+    }
+
+    @Override
+    public int ganadorDeRonda()throws RemoteException{
+        this.ultimoGanador = baza.getDueño(baza.cartaGanadoraRonda(cartaDeTriunfo),getTurnoActual(),cantidadJugadores());
+        return ultimoGanador;
     }
 
     @Override
@@ -220,6 +220,7 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
     public int ganador4Jugadores()throws RemoteException{
         int puntosEquipo1;
         int puntosEquipo2;
+
         puntosEquipo1 = getJugador(0).getPuntuacion() + getJugador(2).getPuntuacion();
         puntosEquipo2 = getJugador(1).getPuntuacion() + getJugador(3).getPuntuacion();
 
@@ -229,7 +230,6 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
         else{
             return 1;
         }
-
     }
 
 
@@ -240,8 +240,8 @@ public class Tablero extends ObservableRemoto implements ITablero,Serializable {
 
     @Override
     public void borrarJugador(int idJugador) throws RemoteException{
-        jugadores.remove(idJugador);
-        idSiguiente--;
+        jugadores.remove(getJugador(idJugador));
+        this.idSiguiente--;
     }
 
     @Override

@@ -88,25 +88,6 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
     }
 
 
-    private void tablaDePuntuacion(){
-        estadoAnt = estado;
-        estado = EstadoVistaConsola.TABLA_DE_PUNTUACION;
-        try{
-            StringBuilder sb = new StringBuilder();
-            Object[][] tabla = this.controlador.getTablaRanking();
-            sb.append(String.format("%-5s %-5s%n", "Nombre", "Puntaje"));
-            sb.append("------------------------------------\n");
-            for (Object[] fila : tabla){
-                sb.append(String.format("%-5s ----- %-5s%n\n", fila[0], fila[1]));
-            }
-            println(sb.toString());
-            println("1. Volver");
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void procesarTablaDePuntuacion(String entrada) {
         switch (entrada){
             case "1":
@@ -125,7 +106,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
                 volverAJugar();
                 break;
             case "2":
-                tablaDePuntuacion();
+                verPuntuaciones();
                 break;
             case "3":
                 controlador.cerrarJugador();
@@ -197,7 +178,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
                 mostrarAgragandoJugador();
                 controlador.setCartaTriunfo();
                 break;
-            case "2":tablaDePuntuacion();
+            case "2":verPuntuaciones();
                 break;
             case "3":
                 println("Gracias por jugar. ¡Hasta luego!");
@@ -291,8 +272,31 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
 
     @Override
     public void verPuntuaciones() {
+        limpiarPantalla();
+        println("TABLA DE PUNTUACION");
+        println("-------------------------------------");
+        estadoAnt = estado;
+        estado = EstadoVistaConsola.TABLA_DE_PUNTUACION;
+        try{
+            StringBuilder sb = new StringBuilder();
+            Object[][] tabla = this.controlador.getTablaRanking();
+            sb.append(String.format("%-15s %-5s%n", "Nombre", "Puntaje"));
+            sb.append("-------------------------------------\n");
+            for (Object[] fila : tabla){
+                sb.append(String.format("%-15s ----- %-5s%n\n", fila[0], fila[1]));
+            }
+            println(sb.toString());
+            println("1. Volver");
+            txtSalida.setCaretPosition(0);
+
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
 
     }
+
 
     private void mostrarBaza(){
         if(controlador.cantidadCartasBaza()>0){
