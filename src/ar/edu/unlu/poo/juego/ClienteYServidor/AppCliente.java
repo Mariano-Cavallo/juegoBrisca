@@ -18,7 +18,7 @@ public class AppCliente {
 
     public static void main(String[] args) throws RemoteException {
         ArrayList<String> ips = Util.getIpDisponibles();
-        /*
+
         String ip = (String) JOptionPane.showInputDialog(
                 null,
                 "Seleccione la IP en la que escuchará peticiones el cliente", "IP del cliente",
@@ -28,7 +28,7 @@ public class AppCliente {
                 null
         );
 
-         */
+
         String port = (String) JOptionPane.showInputDialog(
                 null,
                 "Seleccione el puerto en el que escuchará peticiones el cliente", "Puerto del cliente",
@@ -37,7 +37,7 @@ public class AppCliente {
                 null,
                 9999
         );
-        /*
+
         String ipServidor = (String) JOptionPane.showInputDialog(
                 null,
                 "Seleccione la IP en la corre el servidor", "IP del servidor",
@@ -55,7 +55,7 @@ public class AppCliente {
                 8888
         );
 
-         */
+
 
         Controlador controlador = new Controlador();
         IVista vista;
@@ -71,8 +71,8 @@ public class AppCliente {
         }
 
         controlador.setVista(vista);
-        //Cliente c = new Cliente(ip, Integer.parseInt(port), ipServidor, Integer.parseInt(portServidor));
-        Cliente c = new Cliente("127.0.0.1", Integer.parseInt(port), "127.0.0.1", 8888);
+        Cliente c = new Cliente(ip, Integer.parseInt(port), ipServidor, Integer.parseInt(portServidor));
+        //Cliente c = new Cliente("127.0.0.1", Integer.parseInt(port), "127.0.0.1", 8888);
         vista.iniciar();
         try {
             c.iniciar(controlador);

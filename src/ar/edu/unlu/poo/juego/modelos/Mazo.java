@@ -27,7 +27,6 @@ public class Mazo extends ConjuntoDeCartas implements Serializable {
 
     public void llenarDeCartas(){
         //Cartas Copa
-        /*
         Carta copa1 = new Carta(Palo.COPA,1,11);
         Carta copa2 = new Carta(Palo.COPA,2,0);
         Carta copa3 = new Carta(Palo.COPA,3,10);
@@ -38,6 +37,7 @@ public class Mazo extends ConjuntoDeCartas implements Serializable {
         Carta copa10 = new Carta(Palo.COPA,10,2);
         Carta copa11 = new Carta(Palo.COPA,11,3);
         Carta copa12 = new Carta(Palo.COPA,12,4);
+
         //Cartas Oro
         Carta oro1 = new Carta(Palo.ORO,1,11);
         Carta oro2 = new Carta(Palo.ORO,2,0);
@@ -47,9 +47,9 @@ public class Mazo extends ConjuntoDeCartas implements Serializable {
         Carta oro6 = new Carta(Palo.ORO,6,0);
         Carta oro7 = new Carta(Palo.ORO,7,0);
         Carta oro10 = new Carta(Palo.ORO,10,2);
-
         Carta oro11 = new Carta(Palo.ORO,11,3);
         Carta oro12 = new Carta(Palo.ORO,12,4);
+
         //Cartas Basto
         Carta basto1 = new Carta(Palo.BASTO,1,11);
         Carta basto2 = new Carta(Palo.BASTO,2,0);
@@ -58,12 +58,9 @@ public class Mazo extends ConjuntoDeCartas implements Serializable {
         Carta basto5 = new Carta(Palo.BASTO,5,0);
         Carta basto6 = new Carta(Palo.BASTO,6,0);
         Carta basto7 = new Carta(Palo.BASTO,7,0);
-
-        */
         Carta basto10 = new Carta(Palo.BASTO,10,2);
         Carta basto11 = new Carta(Palo.BASTO,11,3);
         Carta basto12 = new Carta(Palo.BASTO,12,4);
-
 
         //Cartas Espada
         Carta espada1 = new Carta(Palo.ESPADA,1,11);
@@ -76,7 +73,7 @@ public class Mazo extends ConjuntoDeCartas implements Serializable {
         Carta espada10 = new Carta(Palo.ESPADA,10,2);
         Carta espada11 = new Carta(Palo.ESPADA,11,3);
         Carta espada12 = new Carta(Palo.ESPADA,12,4);
-       /*
+
         agregarCarta(copa1);
         agregarCarta(copa2);
         agregarCarta(copa3);
@@ -87,6 +84,7 @@ public class Mazo extends ConjuntoDeCartas implements Serializable {
         agregarCarta(copa10);
         agregarCarta(copa11);
         agregarCarta(copa12);
+
         agregarCarta(oro1);
         agregarCarta(oro2);
         agregarCarta(oro3);
@@ -95,22 +93,20 @@ public class Mazo extends ConjuntoDeCartas implements Serializable {
         agregarCarta(oro6);
         agregarCarta(oro7);
         agregarCarta(oro10);
-
         agregarCarta(oro11);
         agregarCarta(oro12);
+
         agregarCarta(basto1);
         agregarCarta(basto2);
         agregarCarta(basto3);
         agregarCarta(basto4);
-
         agregarCarta(basto5);
         agregarCarta(basto6);
         agregarCarta(basto7);
-
-        */
         agregarCarta(basto10);
         agregarCarta(basto11);
         agregarCarta(basto12);
+
         agregarCarta(espada1);
         agregarCarta(espada2);
         agregarCarta(espada3);

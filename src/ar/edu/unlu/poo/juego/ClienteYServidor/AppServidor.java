@@ -15,7 +15,7 @@ public class AppServidor {
 
     public static void main(String[] args) throws RemoteException {
         ArrayList<String> ips = Util.getIpDisponibles();
-        /*
+
         String ip =
                 (String) JOptionPane.showInputDialog(
                 null,
@@ -37,10 +37,10 @@ public class AppServidor {
                 null,
                 8888
         );
-        Integer.parseInt(port)
-         */
+
+
         Tablero modelo = new Tablero();
-        Servidor servidor = new Servidor("127.0.0.1", 8888);
+        Servidor servidor = new Servidor(ip,Integer.parseInt(port) );
         try {
             servidor.iniciar(modelo);
         } catch (RemoteException e) {

@@ -369,7 +369,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
 
     @Override
     public void cerrar() {
-        setVisible(false);
+        System.exit(0);
     }
 
 
