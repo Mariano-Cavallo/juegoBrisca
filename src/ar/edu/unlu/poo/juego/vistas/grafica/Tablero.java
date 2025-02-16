@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class Tablero extends JFrame {
@@ -32,7 +34,7 @@ public class Tablero extends JFrame {
     private int siguienteLabel = 0;
 
 
-    public Tablero(Controlador controlador,VistaGrafica padre){
+    public Tablero(Controlador controlador, VistaGrafica padre){
         setResizable(false);
         this.padre = padre;
         this.controlador = controlador;
@@ -44,13 +46,21 @@ public class Tablero extends JFrame {
         labels.add(baza3);
         labels.add(baza4);
         setTitle("Tablero");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 800);
         setLocationRelativeTo(null);
         setContentPane(panelPrincipal);
         mapeo = new MapeoCartas();
         actualizarMano();
         txtTablero.setEditable(false);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                controlador.desconeccionDeJugador();
+                controlador.cerrar();
+            }
+        });
 
 
         botonCarta1.addActionListener(new ActionListener() {

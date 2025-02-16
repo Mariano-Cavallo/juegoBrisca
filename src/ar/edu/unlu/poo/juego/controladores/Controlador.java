@@ -19,6 +19,15 @@ public class Controlador implements IControladorRemoto {
 
 
 
+    public void cerrar(){
+        try {
+            modeloTablero.removerObservador(this);
+            System.exit(0);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getJugador()throws RemoteException{
         return idJugador;
     }
@@ -39,6 +48,7 @@ public class Controlador implements IControladorRemoto {
         }
 
     }
+
 
     public Jugador jugadorTurnoActual(){
         try {
@@ -72,14 +82,6 @@ public class Controlador implements IControladorRemoto {
         return idJugador == jugadorTurnoActual().getId();
     }
 
-    //setea carta de triunfo
-    public void setCartaTriunfo(){
-        try {
-            modeloTablero.setCartaDeTriunfo(modeloTablero.robarCartaMazo());
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
     //ver si no hay mas cartas en mazo no repartir
     public void repartirUnaCartaTodosLosJugadores(){
         try {
@@ -238,7 +240,9 @@ public class Controlador implements IControladorRemoto {
         try {
             modeloTablero.nuevoMazo();
             modeloTablero.setTurnoActual(0);
+            //arreglar
             modeloTablero.borrarJugadores();
+            vista.volverMenuPincipal();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -253,22 +257,6 @@ public class Controlador implements IControladorRemoto {
         }
 
     }
-
-    public void borrarJugador() throws RemoteException {
-        modeloTablero.borrarJugador(idJugador);
-    }
-
-    //dudoso
-    public void cerrarJugador(){
-        try {
-                modeloTablero.borrarJugador(idJugador);
-                vista.cerrar();
-                System.exit(0);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 
 
@@ -300,10 +288,6 @@ public class Controlador implements IControladorRemoto {
                 case TERMINAR_PARTIDA:
                     vista.terminarPartida();
                     break;
-                case REINICIO_PARTIDA:
-                    //asi o directamente puedo poner en public la otra funcion
-                    vista.volverMenuPincipal();
-                    break;
                 case COMENZAR_PARTIDA:
                     vista.mostraTablero();
                     vista.actualizarEstadoJugador();
@@ -311,15 +295,16 @@ public class Controlador implements IControladorRemoto {
                 case REINICIAR_BAZA:
                     vista.reiniciarBaza();
                     break;
+                case JUGADOR_DESCONECTADO:
+                    vista.mostrarMensaje("Jugador desconectado");
+                    break;
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
     }
-
 
 
     public String bazaGanadora() {
@@ -359,7 +344,11 @@ public class Controlador implements IControladorRemoto {
     }
 
 
-
-
-
+    public void desconeccionDeJugador() {
+        try {
+            modeloTablero.desconeccionDeJugador();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 }

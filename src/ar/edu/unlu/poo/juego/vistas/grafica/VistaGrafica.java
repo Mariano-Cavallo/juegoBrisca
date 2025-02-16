@@ -3,92 +3,23 @@ package ar.edu.unlu.poo.juego.vistas.grafica;
 import ar.edu.unlu.poo.juego.Mensaje.Mensaje;
 import ar.edu.unlu.poo.juego.controladores.Controlador;
 import ar.edu.unlu.poo.juego.modelos.Carta;
-
 import ar.edu.unlu.poo.juego.vistas.IVista;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 
-public class VistaGrafica extends JFrame implements IVista {
-    private JPanel panelPrincipal;
-    private JButton jugarButton;
-    private JButton tablaDePuntuacionButton;
-    private JButton salirButton;
-    private JButton comoJugar;
+public class VistaGrafica implements IVista {
+
     private Controlador controlador;
     private EsperandoJugadores ventanaEspera;
-    private boolean estadoVentanaAgregadoJugador = false;
-    private EstadoVistaGrafica estado;
     private Tablero tablero;
     private Ganador ganador;
+    private MenuPrincipal menuPrincipal;
     private Puntuaciones puntuaciones;
-
-
-
+    private boolean estadoVentanaAgregadoJugador = false;
 
 
     public VistaGrafica(Controlador controlador){
-        //hacer el menu principal aparte o dejarlo asi
-        setResizable(false);
-        setTitle("Brisca!!!");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 440);
-        setLocationRelativeTo(null);
-        setContentPane(panelPrincipal);
         this.controlador = controlador;
-        panelPrincipal.setBackground(new Color(52, 73, 94));
-
-
-        jugarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onJugar();
-            }
-        });
-        tablaDePuntuacionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onPuntuacion();
-            }
-        });
-        salirButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onSalir();
-            }
-        });
-        comoJugar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onComoJugar();
-            }
-        });
-    }
-
-    private void onComoJugar() {
-        var comoJugar = new ComoJugar();
-
-    }
-
-    //cerrar juego no se porque no funciona con system.exit(0);
-    private void onSalir() {
-        System.exit(0);
-    }
-
-    private void onPuntuacion() {
-        mostrarTablaPuntuaciones();
-
-
-    }
-
-    private void onJugar() {
-        var crearJugador = new CrearJugador(this,controlador);
-        crearJugador.setVisible(true);
-        actualizarAgregadoJugador();
-
     }
 
     public void agregarVentanaDeEspera(){
@@ -96,8 +27,19 @@ public class VistaGrafica extends JFrame implements IVista {
         ventanaEspera.setVisible(true);
     }
 
-    public void estadoDeVentanaEsperaJugadore(boolean estado){
-        this.estadoVentanaAgregadoJugador = estado;
+
+    public void comenzarPartida(){
+        if(controlador.cantidadJugadores()>1) {
+            //sel set este ac o cuando pongo el mazo en el tablero
+            controlador.empezarPartida();
+        }else{
+            mostrarMensaje("Se necesitan al menos 2 jugadores");
+        }
+    }
+
+    private void mostrarMenuPrincipal() {
+        menuPrincipal = new MenuPrincipal(this);
+        menuPrincipal.setVisible(true);
     }
 
     @Override
@@ -105,6 +47,7 @@ public class VistaGrafica extends JFrame implements IVista {
         this.controlador = controlador;
     }
 
+    @Override
     public void mostrarMensaje(String mensaje) {
         if(tablero == null){
             new Mensaje(mensaje);
@@ -115,14 +58,13 @@ public class VistaGrafica extends JFrame implements IVista {
 
     @Override
     public void iniciar() {
-        setVisible(true);
+        mostrarMenuPrincipal();
     }
 
     @Override
     public void cerrar() {
-        tablero.dispose();
-        ganador.dispose();
-        System.exit(0);
+        controlador.cerrar();
+
     }
 
     @Override
@@ -138,8 +80,6 @@ public class VistaGrafica extends JFrame implements IVista {
 
     }
 
-
-    //hacer print en el log del tablero
     @Override
     public void actualizarEstadoJugador() {
         if(controlador.esMiTurno()){
@@ -149,12 +89,11 @@ public class VistaGrafica extends JFrame implements IVista {
             tablero.desactivarBotones();
             tablero.println("Esperando turno");
         }
-    }
 
+    }
 
     @Override
     public void actualizarvista() {
-        //y reiniciar baza
         tablero.actualizarMano();
         tablero.borrarBaza();
     }
@@ -164,16 +103,13 @@ public class VistaGrafica extends JFrame implements IVista {
         ganador = new Ganador(this,controlador);
         ganador.setVisible(true);
 
-
     }
 
     @Override
     public void volverMenuPincipal() {
-        ventanaEspera.setVisible(false);
+        menuPrincipal.setVisible(true);
         ganador.setVisible(false);
         tablero.setVisible(false);
-        this.setVisible(true);
-
     }
 
     @Override
@@ -181,11 +117,13 @@ public class VistaGrafica extends JFrame implements IVista {
         //o poner invicible
         ventanaEspera.setVisible(false);
         tablero = new Tablero(controlador,this);
-        this.setVisible(false);
+        menuPrincipal.setVisible(false);
         tablero.setVisible(true);
         tablero.iniciarNombre(controlador.getNombre());
         tablero.iniciarIconos();
         tablero.println("Que disfrunten el juego! ");
+
+
     }
 
     @Override
@@ -195,11 +133,11 @@ public class VistaGrafica extends JFrame implements IVista {
 
     @Override
     public void nuevaBaza() {
+
     }
 
     @Override
     public void bazaGanadora() {
-
     }
 
     @Override
@@ -208,24 +146,14 @@ public class VistaGrafica extends JFrame implements IVista {
         ventanaPuntuacion.setVisible(true);
     }
 
-    public void comenzarPartida(){
-        if(controlador.cantidadJugadores()>1) {
-            //sel set este ac o cuando pongo el mazo en el tablero
-            controlador.setCartaTriunfo();
-            controlador.empezarPartida();
-        }else{
-            mostrarMensaje("Se necesitan al menos 2 jugadores");
-        }
-    }
+    public void estadoDeVentanaEsperaJugadore(boolean estado) {
+        this.estadoVentanaAgregadoJugador = estado;
 
+    }
     public void agregarJugador(String nombre){
         controlador.crearJugadorEnTablero(nombre);
         controlador.repartir3Jugador();
 
-    }
-
-    public Controlador getControlador(){
-        return this.controlador;
     }
 
     public void mostrarTablaPuntuaciones() {
@@ -237,8 +165,11 @@ public class VistaGrafica extends JFrame implements IVista {
             e.printStackTrace();
         }
     }
+    public Controlador getControlador(){
+        return this.controlador;
+    }
+
+
+
 
 }
-
-
-

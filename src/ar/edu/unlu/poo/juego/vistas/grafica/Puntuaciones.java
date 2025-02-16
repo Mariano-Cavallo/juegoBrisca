@@ -20,7 +20,7 @@ public class Puntuaciones extends JFrame{
     private JTable tablaRanking;
 
 
-    public Puntuaciones(VistaGrafica padre,Controlador Controlador) {
+    public Puntuaciones(VistaGrafica padre, Controlador Controlador) {
         this.padre = padre;
         this.controlador = Controlador;
 

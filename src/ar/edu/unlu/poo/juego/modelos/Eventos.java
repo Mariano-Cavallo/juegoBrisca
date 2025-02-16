@@ -10,6 +10,7 @@ public enum Eventos implements Serializable {
     AGREGAR_JUGADOR,
     SIGUIENTE_TURNO,
     TERMINAR_PARTIDA,
+    JUGADOR_DESCONECTADO,
     REINICIO_PARTIDA,
     ;
 

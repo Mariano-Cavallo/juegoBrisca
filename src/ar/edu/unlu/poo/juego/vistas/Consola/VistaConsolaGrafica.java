@@ -10,6 +10,8 @@ import ar.edu.unlu.poo.juego.vistas.IVista;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -20,18 +22,26 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
     private JTextField txtEntrada;
     private JButton btnEnter;
     private EstadoVistaConsola estado;
-    private String tituloLibro;
-    private String autorLibro;
     private EstadoVistaConsola estadoAnt;
 
     public VistaConsolaGrafica(Controlador controlador)throws RemoteException {
         setTitle("Brisca Consola");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 700);
         setLocationRelativeTo(null);
         setContentPane(panelPrincipal);
         this.controlador = controlador;
         txtSalida.setEditable(false);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                controlador.desconeccionDeJugador();
+                //borrar jugador tamb
+                controlador.cerrar();
+            }
+        });
+
 
 
         btnEnter.addActionListener(new ActionListener() {
@@ -59,7 +69,7 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
         print(string + "\n");
     }
 
-    private void procesarEntrada(String entrada) {
+    private void procesarEntrada(String entrada){
         switch (estado) {
             case MENU_PRINCIPAL:
                 procesarEntradaMenuPrincipal(entrada);
@@ -100,17 +110,21 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
 
     }
 
-    private void procesarPartidaTerminada(String entrada) {
-        switch (entrada){
-            case "1":
-                volverAJugar();
-                break;
-            case "2":
-                verPuntuaciones();
-                break;
-            case "3":
-                controlador.cerrarJugador();
-                break;
+    private void procesarPartidaTerminada(String entrada)  {
+        try {
+            switch (entrada){
+                case "1":
+                    volverAJugar();
+                    break;
+                case "2":
+                    verPuntuaciones();
+                    break;
+                case "3":
+                    controlador.cerrar();
+                    break;
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
     }
 
@@ -176,7 +190,6 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
         switch (entrada) {
             case "1":
                 mostrarAgragandoJugador();
-                controlador.setCartaTriunfo();
                 break;
             case "2":verPuntuaciones();
                 break;
@@ -224,7 +237,9 @@ public class VistaConsolaGrafica extends JFrame implements IVista {
                 }
                 break;
             case "2":
-                System.exit(0);
+                //borrar jugador
+
+                controlador.cerrar();
 
         }
 

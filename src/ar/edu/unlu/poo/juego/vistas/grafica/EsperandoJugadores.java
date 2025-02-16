@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class EsperandoJugadores extends JFrame{
-    private final VistaGrafica padre;
+    private VistaGrafica padre;
     private JPanel panelPrincipal;
     private JButton empezarButton;
     private JTable tablaJugadores;
@@ -20,7 +20,7 @@ public class EsperandoJugadores extends JFrame{
 
 
 
-    public EsperandoJugadores(VistaGrafica padre,Controlador controlador){
+    public EsperandoJugadores(VistaGrafica padre, Controlador controlador){
         setResizable(false);
         setTitle("Esperando jugadores");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -28,7 +28,8 @@ public class EsperandoJugadores extends JFrame{
         setContentPane(panelPrincipal);
         setSize(260, 280);
         this.padre = padre;
-        this.controlador = padre.getControlador();
+        this.controlador = controlador;
+
         this.padre.estadoDeVentanaEsperaJugadore(true);
         modeloTabla = new DefaultTableModel();
         tablaJugadores.setModel(modeloTabla);

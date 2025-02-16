@@ -6,13 +6,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static java.awt.Font.BOLD;
-
 public class Ganador extends JFrame {
     private final VistaGrafica padre;
     private Controlador controlador;
 
-    public Ganador(VistaGrafica padre,Controlador Controlador) {
+    public Ganador(VistaGrafica padre, Controlador Controlador) {
         this.padre = padre;
         this.controlador = Controlador;
 
@@ -22,7 +20,7 @@ public class Ganador extends JFrame {
         setSize(430, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
+        toFront();
         // Crear un JTextArea
         JTextArea textArea = new JTextArea();
         textArea.setLineWrap(true);
@@ -55,12 +53,14 @@ public class Ganador extends JFrame {
                 padre.mostrarTablaPuntuaciones();
             }
         });
+
         boton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.cerrarJugador();
+                padre.cerrar();
             }
         });
+
         // Crear un panel para los botones
         Dimension buttonSize = new Dimension(150, 50); // Tamaño preferido para los botones
         boton1.setPreferredSize(buttonSize);
